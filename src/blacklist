@@ -1,0 +1,32 @@
+ {Object.entries(userWordList).map(([folderName, words]) => (
+        <div key={folderName}>
+          <h1 style={{ display: 'flex', justifyContent: 'space-between' }}>
+            {editFolderName && newFolderName.oldName === folderName ? (
+              <div>
+                <input
+                  placeholder='Enter new folder name'
+                  value={newFolderName.newName}
+                  onChange={event => setNewFolderName({ ...newFolderName, newName: event.target.value })}
+                />
+                <button onClick={e => changeFolderName(e)}>Submit</button>
+              </div>
+            ) : (
+              folderName
+            )}
+            <button onClick={e => changeEditFolderFlag(e, folderName)}>
+              {editFolderName && newFolderName.oldName === folderName ? 'Close' : 'Edit'}
+            </button>
+            <button onClick={e => deleteFolder(e, folderName)}>x</button>
+          </h1>
+          <ul>
+            {Object.entries(words).map(([word, info]) => (
+              <div key={word} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <li>
+                  {word}: {info.wordtrans}
+                </li>
+                <button onClick={e => deleteWordPair(e, folderName, word)}>x</button>
+              </div>
+            ))}
+          </ul>
+        </div>
+      ))}

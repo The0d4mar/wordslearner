@@ -1,0 +1,38 @@
+.folderCard{
+    border: 1px solid darkblue;
+    padding: 11px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+.folderCard__header{
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0;
+    margin-bottom: 20px;
+}
+.folderCard__body{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+.folderCard__title{
+    width: 100%;
+}
+.folderCard__btnBlock{
+    display: flex;
+    gap: 16px;
+    margin-left: auto
+}
+
+.folderCard__nameChanger{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+}
