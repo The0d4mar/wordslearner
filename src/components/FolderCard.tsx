@@ -8,7 +8,7 @@ import MyButton_editFolder from './UI/button/MyButton_editFolder';
 import MyInput, { InputVariant } from './UI/input/MyInput';
 import MyButton__submit from './UI/button/MyButton__submit';
 import { CorrectFolderName } from '../state/words/WordsStorage';
-import { resolveCaa } from 'dns';
+import { useNavigate } from 'react-router-dom';
 
 interface FolderCardProps{
     folderName: string;
@@ -22,6 +22,7 @@ const  FolderCard:FC<FolderCardProps>= ({folderName, numberOfFoldersEl}) => {
 const [changeFolderName, setChangeFolderName] = useState<boolean>(false)
 const [newFolderName, setNewFolderName] = useState('');
 const dispatch = useDispatch();
+const router = useNavigate()
 
 const changeNewFolderName = (newName:string) =>{
     setNewFolderName(newName);
@@ -47,10 +48,17 @@ const changeFolderNameFunc = (e: React.MouseEvent<HTMLButtonElement>) =>{
     }
 }
 
+const openFolder = (e: React.MouseEvent<HTMLDivElement>, folder: string) =>{
+    e.preventDefault();
+    e.stopPropagation();
+
+    router(`/folder/${folder}`)
+}
+
 
 
 return(
-    <div className={cl.folderCard}>
+    <div className={cl.folderCard} onClick={e => openFolder(e, folderName)}>
         <div className={cl.folderCard__header}>
 
             {numberOfFoldersEl} терминов | Vladimir Gornyi

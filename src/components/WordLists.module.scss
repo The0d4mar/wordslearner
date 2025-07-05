@@ -1,0 +1,38 @@
+.wordList__header{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 60px;
+
+}
+
+.wordList__backBtn{
+    color: black;
+}
+.wordListBody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.wordCard{
+    border: 1px solid rgb(7, 7, 83);
+    border-radius: 8px;
+    padding: 50px;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.wordListBody__info{
+    display: flex;
+    gap: 24px;
+    font-size: 18px;
+
+}

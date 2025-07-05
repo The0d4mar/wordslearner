@@ -18,7 +18,6 @@ interface FolderListProps {
 
 const FolderList: FC<FolderListProps> = ({ actualFolder, setFolder, newWord, setNewWord }) => {
   const userWordList = useSelector((state: RootState) => state.wordsList);
-  const dispatch = useDispatch();
 
   return (
     <div className='userListBLock'>
