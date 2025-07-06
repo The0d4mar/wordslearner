@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import wordsReducer from './words/WordsStorage'
+import PairStorage  from "./addfolder/FolderAdder";
 
 export const store = configureStore({
     reducer: {
         wordsList: wordsReducer,
+        pairStorage: PairStorage,
     }
 })
 
