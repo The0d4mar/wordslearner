@@ -1,24 +1,20 @@
 import React, { FC, useState } from 'react'
 import cl from './FolderCard.module.scss'
-
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../state/store';
-import MyButton_deleteFolder from './UI/button/MyButton_deleteFolder';
-import MyButton_editFolder from './UI/button/MyButton_editFolder';
+import { useDispatch} from 'react-redux';
 import MyInput, { InputVariant } from './UI/input/MyInput';
-import MyButton__submit from './UI/button/MyButton__submit';
-import { CorrectFolderName } from '../state/words/WordsStorage';
+import { CorrectFolderName, DeleteFolder } from '../state/words/WordsStorage';
 import { useNavigate } from 'react-router-dom';
+import MyButton, { ButtonVariants } from './UI/button/MyButton';
 
 interface FolderCardProps{
     folderName: string;
     numberOfFoldersEl:number;
-
+    usernickname:string;
 }
 
 
 
-const  FolderCard:FC<FolderCardProps>= ({folderName, numberOfFoldersEl}) => {
+const  FolderCard:FC<FolderCardProps>= ({folderName, numberOfFoldersEl, usernickname}) => {
 const [changeFolderName, setChangeFolderName] = useState<boolean>(false)
 const [newFolderName, setNewFolderName] = useState('');
 const dispatch = useDispatch();
@@ -40,7 +36,7 @@ const changeFolderNameFunc = (e: React.MouseEvent<HTMLButtonElement>) =>{
         if(newFolderName.length < 1){
             throw new Error('Имя папки должно содержать хотя бы один символ')
         }
-        dispatch(CorrectFolderName(`${folderName};${newFolderName}`))
+        dispatch(CorrectFolderName(`${usernickname};${folderName};${newFolderName}`))
         setNewFolderName('');
         setChangeFolderName(!changeFolderName);
     } catch(e){
@@ -48,20 +44,26 @@ const changeFolderNameFunc = (e: React.MouseEvent<HTMLButtonElement>) =>{
     }
 }
 
-const openFolder = (e: React.MouseEvent<HTMLDivElement>, folder: string) =>{
+function deleteFolder(e: React.MouseEvent<HTMLButtonElement>){
+    e.preventDefault()
+    dispatch(DeleteFolder(`${usernickname};${folderName}`))
+}
+
+
+const openFolder = (e: React.MouseEvent<HTMLButtonElement>, folder: string) =>{
     e.preventDefault();
     e.stopPropagation();
 
-    router(`/folder/${folder}`)
+    router(`/folder/${folder}-${usernickname}`)
 }
 
 
 
 return(
-    <div className={cl.folderCard} onClick={e => openFolder(e, folderName)}>
+    <div className={cl.folderCard}>
         <div className={cl.folderCard__header}>
 
-            {numberOfFoldersEl} терминов | Vladimir Gornyi
+            {numberOfFoldersEl} терминов | {usernickname}
 
         </div>
 
@@ -78,16 +80,16 @@ return(
                     value={newFolderName}
                     
                 />
-                <MyButton__submit children={'Add'} onClick={changeFolderNameFunc}/>
+                <MyButton type = {ButtonVariants.add} children={'Add'} onClick={changeFolderNameFunc}/>
                 </div>
                  : folderName}
                 
             </div>
 
             <div className={cl.folderCard__btnBlock}>
-
-                <MyButton_editFolder onClick = {changeFolderFlag} children={changeFolderName ? 'Cancel' : 'Edit'}/>
-                <MyButton_deleteFolder folderName={folderName} children={'x'}/>
+                <MyButton type = {ButtonVariants.simple} onClick={e => openFolder(e, folderName)} children={'Open'}/>
+                <MyButton type = {ButtonVariants.simple} onClick = {changeFolderFlag} children={changeFolderName ? 'Cancel' : 'Edit'}/>
+                <MyButton type = {ButtonVariants.delete} onClick={e =>{deleteFolder(e)}} children={'Delete'}/>
 
             </div>
         </div>

@@ -3,6 +3,7 @@ import './App.css';
 import MainPage from './pages/MainPage';
 import WordLists from './components/WordLists';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import AddFolder from './components/AddFolder';
 
 function App() {
   
@@ -11,7 +12,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/folder' element ={<MainPage/>}/>
-        <Route path='/folder/:folder' element ={<WordLists/>}/>
+        <Route path='/addFolder/:usernickname' element ={<AddFolder/>}/>
+        <Route path='/folder/:folder-nickname' element ={<WordLists/>}/>
         <Route path="*" element={<Navigate to="/folder" replace />}/>
       </Routes>
     </BrowserRouter>
