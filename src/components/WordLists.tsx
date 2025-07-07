@@ -1,9 +1,11 @@
 import React, {FC, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../state/store';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import cl from './WordLists.module.scss'
 import { Link } from 'react-router-dom';
+import WordCard from './WordCard';
+import MyButton, { ButtonVariants } from './UI/button/MyButton';
 
 
 
@@ -16,6 +18,8 @@ const WordLists:FC = () => {
     const [choosenLang, setChoosenLang] = useState<string>('ru-en');
     const [wordInfo, setWordInfo] = useState({actualLength: keyList.length, actualPoz: 1})
     const [actualWord, setActualWord] = useState<string>(keyList[wordInfo.actualPoz - 1])
+    const [changeSide, setChangeSide] = useState('')
+    const router = useNavigate()
 
     const newWords = Object.entries(userWordList).filter(
         ([_, info]) => info.studyingPhase === 1
@@ -32,6 +36,7 @@ const WordLists:FC = () => {
         let nextPoz = wordInfo.actualPoz < wordInfo.actualLength ? wordInfo.actualPoz + 1 : 1;
         setWordInfo({ ...wordInfo, actualPoz: nextPoz });
         setActualWord(keyList[nextPoz - 1]);
+        setChangeSide('left')
     };
 
     const prevWordFunc = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,7 +44,14 @@ const WordLists:FC = () => {
         let nextPoz = wordInfo.actualPoz > 1 ? wordInfo.actualPoz - 1 : wordInfo.actualLength;
         setWordInfo({ ...wordInfo, actualPoz: nextPoz });
         setActualWord(keyList[nextPoz - 1]);
+        setChangeSide('right')
+
     };
+
+    const EditFolderFunc = (e:React.MouseEvent<HTMLButtonElement>) =>{
+
+
+    }
   return (
 
     <div>
@@ -51,9 +63,15 @@ const WordLists:FC = () => {
             
         </div>
         <div className={cl.wordListBody}>
+
+
             <div className={cl.wordCard}>
-                    {actualWord}
+                <div className={cl.wordCard__container}>
+                    <WordCard  originalword={actualWord} wordtranslate={userWordList[actualWord].wordtrans} side = {changeSide}/>
+                </div>
             </div>
+
+
 
             <div className={cl.wordListBody__info}>
                 <button onClick={e => prevWordFunc(e)}>{`<`}</button>
@@ -61,6 +79,8 @@ const WordLists:FC = () => {
                 <button onClick={e => nextWordFunc(e)}>{`>`}</button>
             </div>
         </div>
+
+
 
         <div className={cl.wordListBody__categories}>
             <div className={cl.wordListBody__dontStartCategoria}>
@@ -89,6 +109,9 @@ const WordLists:FC = () => {
                 </div>
                 ))}
             </div>
+        </div>
+        <div className={cl.editFolder}>
+            <MyButton children={'Edit folder'} type={ButtonVariants.simple} onClick={e=>EditFolderFunc(e)}/>
         </div>
     </div>
 

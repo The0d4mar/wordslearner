@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import cl from './AddFolder.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { AddNewFolder, AddNewWord } from '../state/words/WordsStorage';
@@ -10,7 +10,7 @@ import { AddNewPair, CleanPairStorage } from '../state/addfolder/FolderAdder';
 
 
 interface AddFolderProps{
-    
+
 }
 interface WordPair {
   originalWord: string;
@@ -19,9 +19,13 @@ interface WordPair {
 
 
 const AddFolder:FC<AddFolderProps> = () => {
+
+
+
+
     let usernickname= useParams<{ usernickname: string }>()['usernickname'];
     const [folder, setFolder] = useState<string>('');
-    const newPairStorage = useSelector((state: RootState) =>state.pairStorage);
+    const newPairStorage = useSelector((state: RootState) => state.pairStorage);
     const keyarray = Object.keys(newPairStorage);
     const dispatch = useDispatch();
     const router = useNavigate()
@@ -32,6 +36,8 @@ const AddFolder:FC<AddFolderProps> = () => {
         const newKey = lastKey + 1;
         dispatch(AddNewPair(newKey.toString()))
     }
+
+
 
 
     const AddFolderFunc = (e:React.MouseEvent<HTMLButtonElement>) =>{
