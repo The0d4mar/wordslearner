@@ -49,16 +49,10 @@ export const PairStorage = createSlice({
             state[pairnumber] = {...state[+pairnumber], wordTranslate: translateWord}
         },
 
-        CleanPairStorage: (state) =>{
-            state = {'1':{
-                            originalWord: '',
-                            wordTranslate: ''
-                        },
-
-                        '2':{
-                            originalWord: '',
-                            wordTranslate: ''
-                        },
+        CleanPairStorage: () =>{
+            return {
+                        '1': { originalWord: '', wordTranslate: '' },
+                        '2': { originalWord: '', wordTranslate: '' },
                     };
         }
     }
