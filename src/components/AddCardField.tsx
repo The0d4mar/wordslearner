@@ -12,7 +12,7 @@ interface AddCardFieldProps {
 const AddCardField: FC<AddCardFieldProps> = ({pairNumber}) => {
 
     const newPairStorage = useSelector((state: RootState) =>state.pairStorage);
-    const localPairObject = newPairStorage[pairNumber];
+    const localPairObject = newPairStorage.pairs[pairNumber];
     const dispatch = useDispatch();
 
     const changeOriginalWord = (e:React.ChangeEvent<HTMLInputElement>) =>{

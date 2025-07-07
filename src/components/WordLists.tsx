@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import WordCard from './WordCard';
 import MyButton, { ButtonVariants } from './UI/button/MyButton';
 
+import { AddNewPair, ChangeFolderName, ChangeOriginalWord, ChangeStatistic, ChangeTranslateWord } from '../state/addfolder/FolderAdder';
+
 
 
 
@@ -14,12 +16,14 @@ const WordLists:FC = () => {
     let folderWay= useParams<{ folder: string }>();
     const [folderName, usernickname] = Object.values(folderWay)[0].split('-');
     const userWordList = useSelector((state: RootState) => state.wordsList[usernickname]).folders[folderName].words;
+    const folderDataCreator = useSelector((state: RootState) => state.wordsList[usernickname]).folders[folderName].dataofcreaton
     const keyList = Object.keys(userWordList)
     const [choosenLang, setChoosenLang] = useState<string>('ru-en');
     const [wordInfo, setWordInfo] = useState({actualLength: keyList.length, actualPoz: 1})
     const [actualWord, setActualWord] = useState<string>(keyList[wordInfo.actualPoz - 1])
     const [changeSide, setChangeSide] = useState('')
     const router = useNavigate()
+    const dispatch = useDispatch();
 
     const newWords = Object.entries(userWordList).filter(
         ([_, info]) => info.studyingPhase === 1
@@ -49,6 +53,18 @@ const WordLists:FC = () => {
     };
 
     const EditFolderFunc = (e:React.MouseEvent<HTMLButtonElement>) =>{
+        dispatch(ChangeFolderName(folderName))
+        let pairKey = 1;
+        for(let original of keyList){
+            dispatch(AddNewPair(pairKey.toString()))
+            const translate = userWordList[original].wordtrans;
+            const statisticstring = `${pairKey};${userWordList[original].studyingPhase};${userWordList[original].numofstud};${userWordList[original].numofsucc};${folderDataCreator}`
+            dispatch(ChangeStatistic(statisticstring))
+            dispatch(ChangeOriginalWord(`${pairKey};${original}`))
+            dispatch(ChangeTranslateWord(`${pairKey};${translate}`))
+            pairKey+=1;
+            router(`/addFolder/${usernickname}`)
+        }
 
 
     }
@@ -60,6 +76,7 @@ const WordLists:FC = () => {
             <Link to='/folder' className={cl.wordList__backBtn}>Back</Link >
 
             <h1 className={cl.wordsList__title}>{folderName}</h1>
+            <div>{folderDataCreator}</div>
             
         </div>
         <div className={cl.wordListBody}>
