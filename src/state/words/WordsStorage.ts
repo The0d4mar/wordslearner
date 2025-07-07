@@ -69,20 +69,20 @@ export const WordsStorage = createSlice({
     name: "wordList",
     initialState,
     reducers:{
-        AddNewFolder: (state, action: PayloadAction<string>) =>{
-            const [usernickname, newFolderName] = action.payload.split(';');
+        AddNewFolder: (state, action: PayloadAction<{usernickname: string; newFolderName: string}>) =>{
+            const {usernickname, newFolderName} = action.payload;
             const dateOfCreation = '';
             state[usernickname].folders[newFolderName] = {dataofcreaton:dateOfCreation, words: {}, publicFlag: false}
         },
 
-        SetFolderData: (state, action: PayloadAction<string>) =>{
-            const [usernickname, newFolderName, dateOfCreation] = action.payload.split(';');
+        SetFolderData: (state, action: PayloadAction<{usernickname:string; newFolderName:string; dateOfCreation:string}>) =>{
+            const {usernickname, newFolderName, dateOfCreation} = action.payload;
             state[usernickname].folders[newFolderName].dataofcreaton = dateOfCreation;
 
         },
 
-        AddNewWord: (state, action: PayloadAction<string>) =>{
-            const [usernickname, foldername, newword, wordtranslate] = action.payload.split(';');
+        AddNewWord: (state, action: PayloadAction<{usernickname:string; foldername:string; newword:string; wordtranslate:string;}>) =>{
+            const {usernickname, foldername, newword, wordtranslate} = action.payload;
             const newwordobj = {
                 wordtrans: wordtranslate,
                 studyingPhase: 1,
@@ -93,19 +93,19 @@ export const WordsStorage = createSlice({
 
         },
 
-        DeleteFolder: (state, action: PayloadAction<string>) =>{
-            const [usernickname, deleteFolder] = action.payload.split(';');
+        DeleteFolder: (state, action: PayloadAction<{usernickname: string; deleteFolder: string}>) =>{
+            const {usernickname, deleteFolder} = action.payload;
             delete state[usernickname].folders[deleteFolder]
         },
 
-        DeleteWordFromFolder: (state, action: PayloadAction<string>) =>{
-            const [usernickname, foldername, newword] = action.payload.split(';');
-            delete state[usernickname].folders[foldername].words[newword];
+        DeleteWordFromFolder: (state, action: PayloadAction<{usernickname:string; foldername:string; deletedword:string}>) =>{
+            const {usernickname, foldername, deletedword} = action.payload;
+            delete state[usernickname].folders[foldername].words[deletedword];
         },
 
-        CorrectFolderName : (state, action: PayloadAction<string>) =>{
+        CorrectFolderName : (state, action: PayloadAction<{usernickname:string; foldername:string; newFolderName:string;}>) =>{
 
-            const [usernickname, foldername, newFolderName] = action.payload.split(';');
+            const {usernickname, foldername, newFolderName} = action.payload;
             const oldFolderObj = state[usernickname].folders[foldername];
             delete state[usernickname].folders[foldername];
             state[usernickname].folders[newFolderName] = oldFolderObj;
@@ -113,23 +113,23 @@ export const WordsStorage = createSlice({
         },
 
 
-        ChangeStudyingPhase: (state, action: PayloadAction<string>) =>{
-            const [usernickname, foldername, targetWord, newstudyPhase] = action.payload.split(';');
+        ChangeStudyingPhase: (state, action: PayloadAction<{usernickname:string; foldername:string; targetWord:string; newstudyPhase:string;}>) =>{
+            const {usernickname, foldername, targetWord, newstudyPhase} = action.payload;
             state[usernickname].folders[foldername].words[targetWord].studyingPhase = +newstudyPhase;
         },
 
-        ChangeNumofstud: (state, action: PayloadAction<string>) =>{
-            const [usernickname, foldername, targetWord, newstudyPhase] = action.payload.split(';');
+        ChangeNumofstud: (state, action: PayloadAction<{usernickname:string; foldername:string; targetWord:string; newstudyPhase:string;}>) =>{
+            const {usernickname, foldername, targetWord, newstudyPhase} = action.payload;
             state[usernickname].folders[foldername].words[targetWord].numofstud = +newstudyPhase;
         },
 
-        ChangeNumofsucc: (state, action: PayloadAction<string>) =>{
-            const [usernickname, foldername, targetWord, newstudyPhase] = action.payload.split(';');
+        ChangeNumofsucc: (state, action: PayloadAction<{usernickname:string; foldername:string; targetWord:string; newstudyPhase:string;}>) =>{
+            const {usernickname, foldername, targetWord, newstudyPhase} = action.payload;
             state[usernickname].folders[foldername].words[targetWord].numofsucc = +newstudyPhase;
         },
 
-        ChangeData: (state, action: PayloadAction<string>) =>{
-            const [usernickname, foldername, newData] = action.payload.split(';');
+        ChangeData: (state, action: PayloadAction<{usernickname:string; foldername:string; newData:string;}>) =>{
+            const {usernickname, foldername, newData}= action.payload;
             state[usernickname].folders[foldername].dataofcreaton = newData;
         },
 

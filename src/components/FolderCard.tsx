@@ -36,8 +36,12 @@ const changeFolderNameFunc = (e: React.MouseEvent<HTMLButtonElement>) =>{
         if(newFolderName.length < 1){
             throw new Error('Имя папки должно содержать хотя бы один символ')
         }
-        dispatch(CorrectFolderName(`${usernickname};${folderName};${newFolderName}`))
-        setNewFolderName('');
+        dispatch(CorrectFolderName({
+            usernickname: usernickname,
+            foldername: folderName,
+            newFolderName: newFolderName,
+        }))
+        setNewFolderName('')
         setChangeFolderName(!changeFolderName);
     } catch(e){
         alert(e)
@@ -46,7 +50,10 @@ const changeFolderNameFunc = (e: React.MouseEvent<HTMLButtonElement>) =>{
 
 function deleteFolder(e: React.MouseEvent<HTMLButtonElement>){
     e.preventDefault()
-    dispatch(DeleteFolder(`${usernickname};${folderName}`))
+    DeleteFolder({
+                usernickname: usernickname,
+                deleteFolder: folderName,
+              })
 }
 
 
