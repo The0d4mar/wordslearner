@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import cl from './AddFolder.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
-import { AddNewFolder, AddNewWord } from '../state/words/WordsStorage';
+import { AddNewFolder, AddNewWord, ChangeNumofstud, ChangeNumofsucc, ChangeStudyingPhase, CorrectFolderName, DeleteFolder, SetFolderData } from '../state/words/WordsStorage';
 import MyButton, { ButtonVariants } from './UI/button/MyButton';
 import AddCardField from './AddCardField';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -24,9 +24,24 @@ const AddFolder:FC<AddFolderProps> = () => {
 
 
     let usernickname= useParams<{ usernickname: string }>()['usernickname'];
-    const [folder, setFolder] = useState<string>('');
     const newPairStorage = useSelector((state: RootState) => state.pairStorage);
-    const keyarray = Object.keys(newPairStorage);
+    const [folder, setFolder] = useState<string>(newPairStorage.folderName);
+    const [initFlags] = useState(() => ({
+    editfolderFlag: newPairStorage.folderName !== '',
+    oldfoldername: newPairStorage.folderName || ''
+    }));
+    console.log(initFlags.editfolderFlag);
+    const keyarray = Object.keys(newPairStorage.pairs);
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // +1, потому что месяцы с 0
+    const year = now.getFullYear();
+
+    let actualData = `${day}-${month}-${year}`;
+    if(folder != '' && newPairStorage.dataofcreaton != ''){
+        actualData = newPairStorage.dataofcreaton;
+    }
     const dispatch = useDispatch();
     const router = useNavigate()
 
@@ -46,17 +61,37 @@ const AddFolder:FC<AddFolderProps> = () => {
             if(folder == '' || folder.length < 1){
                 throw new Error('не указано имя папки')
             }
-            dispatch(AddNewFolder(`${usernickname};${folder}`));
+            if(initFlags.editfolderFlag){
+                dispatch(DeleteFolder(`${usernickname};${initFlags.oldfoldername}`))
+                dispatch(AddNewFolder(`${usernickname};${folder}`));
+                dispatch(SetFolderData(`${usernickname};${folder};${actualData}`))
 
-            for(let pair in newPairStorage){
+            } else{
+                dispatch(AddNewFolder(`${usernickname};${folder}`));
+                dispatch(SetFolderData(`${usernickname};${folder};${actualData}`))
+            }
 
-                let newWordstr = `${usernickname};${folder};${newPairStorage[pair].originalWord};${newPairStorage[pair].wordTranslate}`;
+
+            for(let pair in newPairStorage.pairs){
+
+                let newWordstr = `${usernickname};${folder};${newPairStorage.pairs[pair].originalWord};${newPairStorage.pairs[pair].wordTranslate}`;
                 dispatch(AddNewWord(newWordstr));
+                let newWordStudy = `${usernickname};${folder};${newPairStorage.pairs[pair].originalWord};${newPairStorage.pairs[pair].statistic.studyingPhase}`
+                dispatch(ChangeStudyingPhase(newWordStudy))
+                newWordStudy = `${usernickname};${folder};${newPairStorage.pairs[pair].originalWord};${newPairStorage.pairs[pair].statistic.numofstud}`
+                dispatch(ChangeNumofstud(newWordStudy))
+                newWordStudy = `${usernickname};${folder};${newPairStorage.pairs[pair].originalWord};${newPairStorage.pairs[pair].statistic.numofsucc}`
+                dispatch(ChangeNumofsucc(newWordStudy))
+                
                 
             }
 
             dispatch(CleanPairStorage())
-            router(`/folder`)
+            if(initFlags.editfolderFlag){
+                router(`/folder/${folder}-${usernickname}`)
+            } else {
+                router(`/folder`)
+            }
         } catch(e){
             alert(e)
         }
@@ -74,7 +109,7 @@ const AddFolder:FC<AddFolderProps> = () => {
                 />
             </div>
 
-            <div className={cl.wordsField} key={1}>
+            <div className={cl.wordsField}>
                   
                   {keyarray.map((pairNumber) =>
                     <AddCardField pairNumber = {pairNumber}/>

@@ -8,7 +8,7 @@ interface WordInfo{
 }
 
 interface Word{
-    data: string;
+    dataofcreaton: string;
     publicFlag: boolean,
     words: {
         [originLang: string]: WordInfo;
@@ -34,7 +34,7 @@ const initialState: userWordList = {
     'vovagorn': {
         folders: {
             fold1: {
-            data: '06-07-2025',
+            dataofcreaton: '06-07-2025',
             publicFlag: false,
             words: {
                     'привет': {
@@ -71,8 +71,14 @@ export const WordsStorage = createSlice({
     reducers:{
         AddNewFolder: (state, action: PayloadAction<string>) =>{
             const [usernickname, newFolderName] = action.payload.split(';');
-            const dateOfCreation = `${new Date().getDate}-${new Date().getMonth}-${new Date().getFullYear}`
-            state[usernickname].folders[newFolderName] = {data:dateOfCreation, words: {}, publicFlag: false}
+            const dateOfCreation = '';
+            state[usernickname].folders[newFolderName] = {dataofcreaton:dateOfCreation, words: {}, publicFlag: false}
+        },
+
+        SetFolderData: (state, action: PayloadAction<string>) =>{
+            const [usernickname, newFolderName, dateOfCreation] = action.payload.split(';');
+            state[usernickname].folders[newFolderName].dataofcreaton = dateOfCreation;
+
         },
 
         AddNewWord: (state, action: PayloadAction<string>) =>{
@@ -104,10 +110,35 @@ export const WordsStorage = createSlice({
             delete state[usernickname].folders[foldername];
             state[usernickname].folders[newFolderName] = oldFolderObj;
 
-        }
+        },
+
+
+        ChangeStudyingPhase: (state, action: PayloadAction<string>) =>{
+            const [usernickname, foldername, targetWord, newstudyPhase] = action.payload.split(';');
+            state[usernickname].folders[foldername].words[targetWord].studyingPhase = +newstudyPhase;
+        },
+
+        ChangeNumofstud: (state, action: PayloadAction<string>) =>{
+            const [usernickname, foldername, targetWord, newstudyPhase] = action.payload.split(';');
+            state[usernickname].folders[foldername].words[targetWord].numofstud = +newstudyPhase;
+        },
+
+        ChangeNumofsucc: (state, action: PayloadAction<string>) =>{
+            const [usernickname, foldername, targetWord, newstudyPhase] = action.payload.split(';');
+            state[usernickname].folders[foldername].words[targetWord].numofsucc = +newstudyPhase;
+        },
+
+        ChangeData: (state, action: PayloadAction<string>) =>{
+            const [usernickname, foldername, newData] = action.payload.split(';');
+            state[usernickname].folders[foldername].dataofcreaton = newData;
+        },
+
+        
+
+        
     }
 })
 
-export const {AddNewFolder, AddNewWord, DeleteFolder, DeleteWordFromFolder, CorrectFolderName} = WordsStorage.actions;
+export const {AddNewFolder,SetFolderData, AddNewWord, DeleteFolder, DeleteWordFromFolder, CorrectFolderName, ChangeStudyingPhase, ChangeNumofstud, ChangeNumofsucc, ChangeData} = WordsStorage.actions;
 
 export default WordsStorage.reducer;
