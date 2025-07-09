@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ChangePrivateFlag } from "../addfolder/FolderAdder";
 
 interface WordInfo{
     wordtrans: string;
@@ -9,6 +10,7 @@ interface WordInfo{
 
 interface Word{
     dataofcreaton: string;
+    uniqeCode: string;
     publicFlag: boolean,
     words: {
         [originLang: string]: WordInfo;
@@ -35,6 +37,7 @@ const initialState: userWordList = {
         folders: {
             fold1: {
             dataofcreaton: '06-07-2025',
+            uniqeCode: '0607202517394135vladgorn',
             publicFlag: false,
             words: {
                     'привет': {
@@ -59,7 +62,7 @@ const initialState: userWordList = {
             },
         },
         userdata: {
-            username: 'Vladimir',
+            username: 'vovagorn',
             password: '1234@passw',
             login: 'vladimir@mail.com',
         },
@@ -69,10 +72,10 @@ export const WordsStorage = createSlice({
     name: "wordList",
     initialState,
     reducers:{
-        AddNewFolder: (state, action: PayloadAction<{usernickname: string; newFolderName: string}>) =>{
-            const {usernickname, newFolderName} = action.payload;
+        AddNewFolder: (state, action: PayloadAction<{usernickname: string; newFolderName: string; uniqeCode:string}>) =>{
+            const {usernickname, newFolderName, uniqeCode} = action.payload;
             const dateOfCreation = '';
-            state[usernickname].folders[newFolderName] = {dataofcreaton:dateOfCreation, words: {}, publicFlag: false}
+            state[usernickname].folders[newFolderName] = {dataofcreaton:dateOfCreation, words: {}, publicFlag: false, uniqeCode: uniqeCode}
         },
 
         SetFolderData: (state, action: PayloadAction<{usernickname:string; newFolderName:string; dateOfCreation:string}>) =>{
@@ -133,12 +136,48 @@ export const WordsStorage = createSlice({
             state[usernickname].folders[foldername].dataofcreaton = newData;
         },
 
+        ChangeUniqeCode: (state, action: PayloadAction<{usernickname:string; foldername:string; newcode:string;}>) =>{
+            const {usernickname, foldername, newcode}= action.payload;
+            state[usernickname].folders[foldername].uniqeCode = newcode;
+        },
+
+        ChangePublicFlag:(state, action: PayloadAction<{usernickname:string; foldername:string; newFlag:boolean;}>)=>{
+            const {usernickname, foldername, newFlag}= action.payload;
+            state[usernickname].folders[foldername].publicFlag = newFlag;
+        },
+
+        AddNewUser:(state, action: PayloadAction<{newUserNickname:string; password:string; login:string;}>)=>{
+            const {newUserNickname, password, login} = action.payload;
+
+            state[newUserNickname] =  {
+                folders: {
+                },
+                userdata: {
+                    username: newUserNickname,
+                    password: password,
+                    login: login,
+                },
+            }
+
+        },
+
+
+        CopyNewFolder : (state, action: PayloadAction<{nickname: string, nameofCopiedFolder: string; copiedFolder: Word}>) =>{
+
+            const {nickname, nameofCopiedFolder, copiedFolder} = action.payload;
+
+            state[nickname].folders[nameofCopiedFolder] = copiedFolder;
+
+        }
+
+
+
         
 
         
     }
 })
 
-export const {AddNewFolder,SetFolderData, AddNewWord, DeleteFolder, DeleteWordFromFolder, CorrectFolderName, ChangeStudyingPhase, ChangeNumofstud, ChangeNumofsucc, ChangeData} = WordsStorage.actions;
+export const {ChangeUniqeCode, AddNewUser, CopyNewFolder, ChangePublicFlag, AddNewFolder,SetFolderData, AddNewWord, DeleteFolder, DeleteWordFromFolder, CorrectFolderName, ChangeStudyingPhase, ChangeNumofstud, ChangeNumofsucc, ChangeData} = WordsStorage.actions;
 
 export default WordsStorage.reducer;

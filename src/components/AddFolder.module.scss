@@ -1,0 +1,144 @@
+.addFolderPage__header{
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    margin-right: auto;
+    max-width: 150px;
+}
+
+.addFolderPage__form{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.folderField {
+margin-bottom: 40px;
+display: flex;
+justify-content: center; // выровнять по центру, если нужно
+width: 100%;
+margin-left: auto;
+margin-right: auto;
+}
+.wordField{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    border: 1px solid darkblue;
+    border-radius: 8px;
+}
+.wordField__header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    border-bottom: 1px solid darkblue;
+}
+
+.wordField__cont{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 16px 16px 8px 16px;
+}
+
+.wordField__body{
+    padding: 8px 16px 16px 16px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+.wordField__addBtn{
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.addFolderPage__submitBtn{
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    max-width: 150px;
+}
+
+.privateBtn{
+    margin-bottom: 40px;
+    display: flex;
+    gap:8px;
+    align-items: end;
+    position: relative;
+}
+
+
+.switch 
+{
+  display: inline-block;
+  width: 60px; /*=w*/
+  height: 30px; /*=h*/
+  margin: 4px;
+  transform: translateY(50%);
+  position: relative;
+}
+
+.slider
+{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 30px;
+  box-shadow: 0 0 0 2px #777, 0 0 4px #777;
+  cursor: pointer;
+  border: 4px solid transparent;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.slider:before
+{
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #777;
+  border-radius: 30px;
+  transform: translateX(-30px); /*translateX(-(w-h))*/
+  transition: 0.2s;
+}
+
+input:checked + .slider:before
+{
+  transform: translateX(30px); /*translateX(w-h)*/
+  background-color: limeGreen;
+}
+
+input:checked + .slider
+{
+  box-shadow: 0 0 0 2px limeGreen, 0 0 8px limeGreen;
+}
+
+.switch200 .slider:before
+{
+  width: 200%;
+  transform: translateX(-82px); /*translateX(-(w-h))*/
+}
+
+.switch200 input:checked + .slider:before
+{
+  background-color: rgb(21, 255, 0);
+}
+
+.switch200 input:checked + .slider
+{
+  box-shadow: 0 0 0 2px rgb(21, 255, 0), 0 0 8px rgb(21, 255, 0);
+}
+
+.switch input
+{
+  display: none;
+}

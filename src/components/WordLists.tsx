@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 import WordCard from './WordCard';
 import MyButton, { ButtonVariants } from './UI/button/MyButton';
 
-import { AddNewPair, ChangeFolderName, ChangeOriginalWord, ChangeStatistic, ChangeTranslateWord } from '../state/addfolder/FolderAdder';
+import { AddNewPair, ChangeFolderName, ChangeOriginalWord, ChangePrivateFlag, ChangeStatistic, ChangeTranslateWord, ChangeUniqeCode } from '../state/addfolder/FolderAdder';
+import WordsRating from './WordsRating';
 
 
 
@@ -17,23 +18,14 @@ const WordLists:FC = () => {
     const [folderName, usernickname] = Object.values(folderWay)[0].split('-');
     const userWordList = useSelector((state: RootState) => state.wordsList[usernickname]).folders[folderName].words;
     const folderDataCreator = useSelector((state: RootState) => state.wordsList[usernickname]).folders[folderName].dataofcreaton
+    const privateFlag = useSelector((state: RootState) => state.wordsList[usernickname]).folders[folderName].publicFlag
+    const uniqeCode = useSelector((state: RootState) => state.wordsList[usernickname]).folders[folderName].uniqeCode
     const keyList = Object.keys(userWordList)
-    const [choosenLang, setChoosenLang] = useState<string>('ru-en');
     const [wordInfo, setWordInfo] = useState({actualLength: keyList.length, actualPoz: 1})
     const [actualWord, setActualWord] = useState<string>(keyList[wordInfo.actualPoz - 1])
     const [changeSide, setChangeSide] = useState('')
     const router = useNavigate()
     const dispatch = useDispatch();
-
-    const newWords = Object.entries(userWordList).filter(
-        ([_, info]) => info.studyingPhase === 1
-        );
-    const learningWords = Object.entries(userWordList).filter(
-        ([_, info]) => info.studyingPhase === 2
-        );
-    const learnedWords = Object.entries(userWordList).filter(
-        ([_, info]) => info.studyingPhase === 3
-        );
     
     const nextWordFunc = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -54,14 +46,27 @@ const WordLists:FC = () => {
 
     const EditFolderFunc = (e:React.MouseEvent<HTMLButtonElement>) =>{
         dispatch(ChangeFolderName(folderName))
+        dispatch(ChangePrivateFlag(privateFlag))
+        dispatch(ChangeUniqeCode(uniqeCode))
         let pairKey = 1;
         for(let original of keyList){
             dispatch(AddNewPair(pairKey.toString()))
             const translate = userWordList[original].wordtrans;
-            const statisticstring = `${pairKey};${userWordList[original].studyingPhase};${userWordList[original].numofstud};${userWordList[original].numofsucc};${folderDataCreator}`
-            dispatch(ChangeStatistic(statisticstring))
-            dispatch(ChangeOriginalWord(`${pairKey};${original}`))
-            dispatch(ChangeTranslateWord(`${pairKey};${translate}`))
+            dispatch(ChangeStatistic({
+                pairkey:pairKey.toString(),
+                studyingPhase:userWordList[original].studyingPhase.toString(),
+                numofstud:userWordList[original].numofstud.toString(),
+                numofsucc:userWordList[original].numofsucc.toString(),
+                dataofcreaton:folderDataCreator,
+            })) 
+            dispatch(ChangeOriginalWord({
+                pairnumber:pairKey.toString(),
+                originalWord:original,
+            }))
+            dispatch(ChangeTranslateWord({
+                pairnumber:pairKey.toString(),
+                translateWord:translate,
+            }))
             pairKey+=1;
             router(`/addFolder/${usernickname}`)
         }
@@ -91,42 +96,15 @@ const WordLists:FC = () => {
 
 
             <div className={cl.wordListBody__info}>
-                <button onClick={e => prevWordFunc(e)}>{`<`}</button>
+                <MyButton onClick={e => prevWordFunc(e)} type={ButtonVariants.simple} children={'<'}/>
                 {wordInfo.actualPoz}
-                <button onClick={e => nextWordFunc(e)}>{`>`}</button>
+                <MyButton onClick={e => nextWordFunc(e)} type={ButtonVariants.simple} children={'>'}/>
             </div>
         </div>
 
 
 
-        <div className={cl.wordListBody__categories}>
-            <div className={cl.wordListBody__dontStartCategoria}>
-                <h1 className={cl.wordListBody__categoriaHeader}>Только добавлены</h1>
-                {newWords.map(([originWord, infoObj]) => (
-                <div key={originWord}>
-                    {originWord} — {infoObj.wordtrans}
-                </div>
-                ))}
-            </div>
-
-            <div className={cl.wordListBody__learnStartCategoria}>
-                <h1 className={cl.wordListBody__categoriaHeader}>Изучены</h1>
-                {learningWords.map(([originWord, infoObj]) => (
-                <div key={originWord}>
-                    {originWord} — {infoObj.wordtrans}
-                </div>
-                ))}
-            </div>
-
-            <div className={cl.wordListBody__learnedStartCategoria}>
-                <h1 className={cl.wordListBody__categoriaHeader}>Усвоены</h1>
-                {learnedWords.map(([originWord, infoObj]) => (
-                <div key={originWord}>
-                    {originWord} — {infoObj.wordtrans}
-                </div>
-                ))}
-            </div>
-        </div>
+        <WordsRating usernickname={usernickname} folderName={folderName}/>
         <div className={cl.editFolder}>
             <MyButton children={'Edit folder'} type={ButtonVariants.simple} onClick={e=>EditFolderFunc(e)}/>
         </div>

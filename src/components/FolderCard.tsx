@@ -50,12 +50,11 @@ const changeFolderNameFunc = (e: React.MouseEvent<HTMLButtonElement>) =>{
 
 function deleteFolder(e: React.MouseEvent<HTMLButtonElement>){
     e.preventDefault()
-    DeleteFolder({
-                usernickname: usernickname,
-                deleteFolder: folderName,
-              })
+    dispatch(DeleteFolder({
+        usernickname,
+        deleteFolder: folderName,
+    }))
 }
-
 
 const openFolder = (e: React.MouseEvent<HTMLButtonElement>, folder: string) =>{
     e.preventDefault();

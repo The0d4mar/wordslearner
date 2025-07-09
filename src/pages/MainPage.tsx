@@ -11,10 +11,8 @@ function MainPage() {
   const [folder, setFolder] = useState<string>('');
   const [newWord, setNewWord] = useState({ originalWord: '', transalteWord: '' });
   const usernickname = 'vovagorn';
-  const userWordList = useSelector((state: RootState) => state.wordsList[usernickname]).folders;
   const router = useNavigate()
 
-  const userWordList__folders = Object.keys(userWordList);
   const [actualFolder, setActualFolder] = useState<string>('');
 
   
@@ -30,7 +28,9 @@ function MainPage() {
 
     <div className='App__header'>
 
-    <MyButton type = {ButtonVariants.simple} onClick={e=>{addFolder(e)}} children={'Добавить папку'}/>
+    <div className='App__addfolderBtn'>
+      <MyButton type = {ButtonVariants.simple} onClick={e=>{addFolder(e)}} children={'Добавить папку'}/>
+    </div>
 
       <div className='userBlock'>
         <div className='usercard'>

@@ -17,6 +17,8 @@ interface PairFolder{
 interface foldAdder{
     folderName: string
     dataofcreaton: string;
+    publicFlag:boolean;
+    uniqeCode:string;
     pairs: {
         [pairnumber: string]: PairFolder;
     }
@@ -26,6 +28,8 @@ const initialState: foldAdder = {
 
     folderName: '',
     dataofcreaton: '',
+    publicFlag: false,
+    uniqeCode: '',
     pairs: {
         '1':{
             originalWord: '',
@@ -75,19 +79,19 @@ export const PairStorage = createSlice({
             delete state.pairs[action.payload]
         },
 
-        ChangeOriginalWord: (state, action: PayloadAction<string>) =>{
-            const [pairnumber, originalWord] = action.payload.split(';')
+        ChangeOriginalWord: (state, action: PayloadAction<{pairnumber:string; originalWord:string;}>) =>{
+            const {pairnumber, originalWord} = action.payload;
             state.pairs[pairnumber] = {...state.pairs[pairnumber], originalWord: originalWord}
 
         },
 
-        ChangeTranslateWord: (state, action: PayloadAction<string>) =>{
-            const [pairnumber, translateWord] = action.payload.split(';')
+        ChangeTranslateWord: (state, action: PayloadAction<{pairnumber:string; translateWord:string}>) =>{
+            const {pairnumber, translateWord} = action.payload;
             state.pairs[pairnumber] = {...state.pairs[+pairnumber], wordTranslate: translateWord}
         },
 
-        ChangeStatistic: (state, action: PayloadAction<string>) =>{
-            const [pairkey, studyingPhase, numofstud, numofsucc, dataofcreaton] = action.payload.split(';');
+        ChangeStatistic: (state, action: PayloadAction<{pairkey:string; studyingPhase:string; numofstud:string; numofsucc:string; dataofcreaton:string;}>) =>{
+            const {pairkey, studyingPhase, numofstud, numofsucc, dataofcreaton} = action.payload;
             state.dataofcreaton = dataofcreaton;
             state.pairs[pairkey].statistic = {
                 studyingPhase: +studyingPhase,
@@ -96,11 +100,21 @@ export const PairStorage = createSlice({
             }
         },
 
+        ChangePrivateFlag: (state, action: PayloadAction<boolean>) =>{
+            state.publicFlag = action.payload;
+        },
+
+        ChangeUniqeCode: (state, action: PayloadAction<string>) =>{
+            state.uniqeCode = action.payload;
+        },
+
 
         CleanPairStorage: () =>{
             return {
                 folderName: '',
                 dataofcreaton: '',
+                publicFlag: false,
+                uniqeCode: '',
                 pairs: {
                         '1': { originalWord: '', wordTranslate: '', statistic:{
                                             studyingPhase: 1,
@@ -119,6 +133,6 @@ export const PairStorage = createSlice({
     }
 })
 
-export const {ChangeFolderName, AddNewPair, DeletePair, ChangeOriginalWord, ChangeTranslateWord, ChangeStatistic, CleanPairStorage} = PairStorage.actions;
+export const {ChangeUniqeCode, ChangePrivateFlag, ChangeFolderName, AddNewPair, DeletePair, ChangeOriginalWord, ChangeTranslateWord, ChangeStatistic, CleanPairStorage} = PairStorage.actions;
 
 export default PairStorage.reducer;
