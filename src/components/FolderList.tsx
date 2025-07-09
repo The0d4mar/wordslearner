@@ -14,16 +14,17 @@ interface FolderListProps {
   setFolder: (newstring: string) => void;
   newWord: NewWordList;
   setNewWord: (originalWord: string, transalteWord: string) => void;
+  usernickname:string;
 }
 
-const FolderList: FC<FolderListProps> = ({ actualFolder, setFolder, newWord, setNewWord }) => {
-  const userWordList = useSelector((state: RootState) => state.wordsList);
+const FolderList: FC<FolderListProps> = ({ actualFolder, setFolder, newWord, setNewWord, usernickname }) => {
+  const userWordList = useSelector((state: RootState) => state.wordsList[usernickname]).folders;
 
   return (
     <div className='userListBLock'>
-     {Object.entries(userWordList).map(([folderName, words]) =>
+     {Object.entries(userWordList).map(([folderName, folderinner]) =>
         
-        <FolderCard folderName = {folderName} numberOfFoldersEl = {Object.keys(words).length}/>
+        <FolderCard folderName = {folderName} numberOfFoldersEl = {Object.keys(folderinner.words).length} usernickname ={usernickname}/>
         )}
 
     </div>

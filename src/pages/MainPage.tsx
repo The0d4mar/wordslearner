@@ -4,70 +4,40 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../state/store';
 import { AddNewFolder, AddNewWord } from '../state/words/WordsStorage';
 import FolderList from '../components/FolderList';
+import MyButton, { ButtonVariants } from '../components/UI/button/MyButton';
+import { Link, useNavigate } from 'react-router-dom';
 
 function MainPage() {
   const [folder, setFolder] = useState<string>('');
   const [newWord, setNewWord] = useState({ originalWord: '', transalteWord: '' });
-  const userWordList = useSelector((state: RootState) => state.wordsList);
-  const dispatch = useDispatch();
+  const usernickname = 'vovagorn';
+  const userWordList = useSelector((state: RootState) => state.wordsList[usernickname]).folders;
+  const router = useNavigate()
 
   const userWordList__folders = Object.keys(userWordList);
   const [actualFolder, setActualFolder] = useState<string>('');
 
-  function addNewFolder(e: React.MouseEvent<HTMLButtonElement>, folderName: string) {
-    e.preventDefault();
-    dispatch(AddNewFolder(folderName));
-    setFolder('');
-  }
+  
 
-  function addNewWord(e: React.MouseEvent<HTMLButtonElement>) {
+  const addFolder = (e: React.MouseEvent<HTMLButtonElement>) =>{
     e.preventDefault();
-    try {
-      if (actualFolder === '') {
-        throw new Error('Не выбрана папка');
-      }
-
-      const newWordstr = `${actualFolder};${newWord.originalWord};${newWord.transalteWord}`;
-      dispatch(AddNewWord(newWordstr));
-      setNewWord({ originalWord: '', transalteWord: '' });
-    } catch (e: any) {
-      alert(e.message);
-    }
+    e.stopPropagation();
+    router(`/addFolder/${usernickname}`)
   }
 
   return (
-    <div>
-      <form>
-        <input
-          placeholder='Enter a name of new folder'
-          value={folder}
-          onChange={e => setFolder(e.target.value)}
-        />
-        <button onClick={e => addNewFolder(e, folder)}>Add the folder</button>
-      </form>
+    <div className='App'>
 
-      <form>
-        <select
-          value={actualFolder}
-          onChange={event => setActualFolder(event.target.value)}
-        >
-          <option value='' disabled>Выберите папку</option>
-          {userWordList__folders.map(folder => (
-            <option key={folder} value={folder}>{folder}</option>
-          ))}
-        </select>
-        <input
-          placeholder='Enter an original word'
-          value={newWord.originalWord}
-          onChange={e => setNewWord({ ...newWord, originalWord: e.target.value })}
-        />
-        <input
-          placeholder='Enter translate of this word'
-          value={newWord.transalteWord}
-          onChange={e => setNewWord({ ...newWord, transalteWord: e.target.value })}
-        />
-        <button onClick={e => addNewWord(e)}>Add new word</button>
-      </form>
+    <div className='App__header'>
+
+    <MyButton type = {ButtonVariants.simple} onClick={e=>{addFolder(e)}} children={'Добавить папку'}/>
+
+      <div className='userBlock'>
+        <div className='usercard'>
+          <div className='usercard__cont'>{usernickname[0]}</div>
+        </div>
+      </div>
+    </div>
 
       <FolderList
         actualFolder={actualFolder}
@@ -76,6 +46,7 @@ function MainPage() {
         setNewWord={(originalWord, transalteWord) =>
           setNewWord({ originalWord, transalteWord })
         }
+        usernickname={usernickname}
       />
     </div>
   );

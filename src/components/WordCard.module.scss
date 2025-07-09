@@ -1,0 +1,101 @@
+.wordcard{
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+
+.wordcard_left{
+    top: 50% !important;
+    left: 25%;
+    transform: translate(-50%, -50%) rotateY(-60deg);
+    animation: wordcard_leftKeyFrame 200ms linear;
+}
+
+@keyframes wordcard_leftKeyFrame {
+    from{
+        left: 25%;
+        transform: translate(-50%, -50%) rotateY(-60deg);
+    }
+
+    to{
+        left: 50%;
+        transform:translate(-50%, -50%) rotateY(0deg);
+    }
+    
+}
+
+
+.wordcard_right{
+    top: 50% !important;
+    left: 75%;
+    transform: translate(-50%, -50%) rotateY(60deg);
+    animation: wordcard_rightKeyFrame 200ms linear;
+}
+
+@keyframes wordcard_rightKeyFrame {
+    from{
+        left: 75%;
+        transform: translate(-50%, -50%) rotateY(60deg);
+    }
+
+    to{
+        left: 50%;
+        transform:translate(-50%, -50%) rotateY(0deg);
+    }
+    
+}
+
+
+.wordcard__cont{
+    border-radius: 8px;
+    background-color: rgb(125, 176, 196);
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.wordcard__cont_rotate{
+    transition: 1s;
+    transform: rotateX(180deg);
+}
+
+
+
+.wordcard__words{
+    color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.wordcard__words_transform{
+    animation: wordChanger 700ms linear;
+    transition: 1s;
+    transform: translate(-50%, -50%) rotateX(360deg);
+}
+
+@keyframes wordChanger {
+    0%{
+        opacity: .3;
+    }
+    50%{
+         opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}

@@ -8,60 +8,101 @@ interface WordInfo{
 }
 
 interface Word{
-    [originLang: string]: WordInfo;
+    data: string;
+    publicFlag: boolean,
+    words: {
+        [originLang: string]: WordInfo;
+    };
+}
+
+interface UserData {
+    username:string;
+    password:string;
+    login:string;
 }
 
 interface userWordList{
-    [folderName: string]: Word;
+    [usernickname:string]: {
+        folders: {
+            [folderName: string]: Word;
+        };
+        userdata: UserData;
+    }
 }
 
 const initialState: userWordList = {
-    fold1:{
-        'привет':{
-            wordtrans: 'hello',
-            studyingPhase: 1,
-            numofstud: 1,
-            numofsucc: 1,
+    'vovagorn': {
+        folders: {
+            fold1: {
+            data: '06-07-2025',
+            publicFlag: false,
+            words: {
+                    'привет': {
+                        wordtrans: 'hello',
+                        studyingPhase: 1,
+                        numofstud: 1,
+                        numofsucc: 1,
+                    },
+                    'пока': {
+                        wordtrans: 'goodbay',
+                        studyingPhase: 3,
+                        numofstud: 6,
+                        numofsucc: 5,
+                    },
+                    'хорошо': {
+                        wordtrans: 'good',
+                        studyingPhase: 3,
+                        numofstud: 3,
+                        numofsucc: 3,
+                    },
+                },
+            },
         },
-    },
-}
-
+        userdata: {
+            username: 'Vladimir',
+            password: '1234@passw',
+            login: 'vladimir@mail.com',
+        },
+    }
+};
 export const WordsStorage = createSlice({
     name: "wordList",
     initialState,
     reducers:{
         AddNewFolder: (state, action: PayloadAction<string>) =>{
-            const newFolderName = action.payload;
-            state[newFolderName] = {}
+            const [usernickname, newFolderName] = action.payload.split(';');
+            const dateOfCreation = `${new Date().getDate}-${new Date().getMonth}-${new Date().getFullYear}`
+            state[usernickname].folders[newFolderName] = {data:dateOfCreation, words: {}, publicFlag: false}
         },
 
         AddNewWord: (state, action: PayloadAction<string>) =>{
-            const [foldername, newword, wordtranslate] = action.payload.split(';');
+            const [usernickname, foldername, newword, wordtranslate] = action.payload.split(';');
             const newwordobj = {
                 wordtrans: wordtranslate,
                 studyingPhase: 1,
                 numofstud: 0,
                 numofsucc: 0,
             };
-            state[foldername][newword] = newwordobj;
+            state[usernickname].folders[foldername].words[newword] = newwordobj;
 
         },
 
         DeleteFolder: (state, action: PayloadAction<string>) =>{
-            delete state[action.payload]
+            const [usernickname, deleteFolder] = action.payload.split(';');
+            delete state[usernickname].folders[deleteFolder]
         },
 
         DeleteWordFromFolder: (state, action: PayloadAction<string>) =>{
-            const [foldername, newword] = action.payload.split(';');
-            delete state[foldername][newword];
+            const [usernickname, foldername, newword] = action.payload.split(';');
+            delete state[usernickname].folders[foldername].words[newword];
         },
 
         CorrectFolderName : (state, action: PayloadAction<string>) =>{
 
-            const [foldername, newFolderName] = action.payload.split(';');
-            const oldFolderObj = state[foldername];
-            delete state[foldername]
-            state[newFolderName] = oldFolderObj;
+            const [usernickname, foldername, newFolderName] = action.payload.split(';');
+            const oldFolderObj = state[usernickname].folders[foldername];
+            delete state[usernickname].folders[foldername];
+            state[usernickname].folders[newFolderName] = oldFolderObj;
 
         }
     }
