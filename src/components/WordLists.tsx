@@ -75,40 +75,42 @@ const WordLists:FC = () => {
     }
   return (
 
-    <div>
-        <div className={cl.wordList__header}>
+    <section>
+        <header className={cl.wordList__header}>
 
             <Link to='/folder' className={cl.wordList__backBtn}>Back</Link >
 
             <h1 className={cl.wordsList__title}>{folderName}</h1>
             <div>{folderDataCreator}</div>
             
-        </div>
-        <div className={cl.wordListBody}>
+        </header>
+        <main>
+            <div className={cl.wordListBody}>
 
 
-            <div className={cl.wordCard}>
-                <div className={cl.wordCard__container}>
-                    <WordCard  originalword={actualWord} wordtranslate={userWordList[actualWord].wordtrans} side = {changeSide}/>
+                <div className={cl.wordCard}>
+                    <div className={cl.wordCard__container}>
+                        <WordCard  originalword={actualWord} wordtranslate={userWordList[actualWord].wordtrans} side = {changeSide}/>
+                    </div>
+                </div>
+
+
+
+                <div className={cl.wordListBody__info}>
+                    <MyButton onClick={e => prevWordFunc(e)} type={ButtonVariants.simple} children={'<'}/>
+                    {wordInfo.actualPoz}
+                    <MyButton onClick={e => nextWordFunc(e)} type={ButtonVariants.simple} children={'>'}/>
                 </div>
             </div>
 
 
 
-            <div className={cl.wordListBody__info}>
-                <MyButton onClick={e => prevWordFunc(e)} type={ButtonVariants.simple} children={'<'}/>
-                {wordInfo.actualPoz}
-                <MyButton onClick={e => nextWordFunc(e)} type={ButtonVariants.simple} children={'>'}/>
+            <WordsRating usernickname={usernickname} folderName={folderName}/>
+            <div className={cl.editFolder}>
+                <MyButton children={'Edit folder'} type={ButtonVariants.simple} onClick={e=>EditFolderFunc(e)}/>
             </div>
-        </div>
-
-
-
-        <WordsRating usernickname={usernickname} folderName={folderName}/>
-        <div className={cl.editFolder}>
-            <MyButton children={'Edit folder'} type={ButtonVariants.simple} onClick={e=>EditFolderFunc(e)}/>
-        </div>
-    </div>
+        </main>
+    </section>
 
   );
 };

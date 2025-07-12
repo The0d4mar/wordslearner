@@ -188,7 +188,7 @@ const AddFolder: FC<AddFolderProps> = () => {
   }
 
   return (
-    <div className={cl.addFolderPage}>
+    <section className={cl.addFolderPage}>
       <div className={cl.addFolderPage__header}><MyButton type={ButtonVariants.simple} children={'Back'} onClick={e=>{turnBackFunc(e)}}/></div>
 
       <form className={cl.addFolderPage__form}>
@@ -236,7 +236,7 @@ const AddFolder: FC<AddFolderProps> = () => {
           
         </div>     
       </form>
-    </div>
+    </section>
   );
 };
 

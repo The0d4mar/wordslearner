@@ -66,7 +66,7 @@ const openFolder = (e: React.MouseEvent<HTMLButtonElement>, folder: string) =>{
 
 
 return(
-    <div className={cl.folderCard}>
+    <section className={cl.folderCard}>
         <div className={cl.folderCard__header}>
 
             {numberOfFoldersEl} терминов | {usernickname}
@@ -100,7 +100,7 @@ return(
             </div>
         </div>
 
-    </div>
+    </section>
     )
 }
 export default FolderCard;

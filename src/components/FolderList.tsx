@@ -1,33 +1,66 @@
-import React, { FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {FC} from 'react';
+import { useSelector } from 'react-redux';
 import { RootState } from '../state/store';
-import { DeleteFolder, DeleteWordFromFolder, CorrectFolderName } from '../state/words/WordsStorage';
-import FolderCard from './FolderCard';
+import cl from './FolderList.module.scss'
+import PhaseBlock from './UI/phaseblock/PhaseBlock';
+import { useNavigate } from 'react-router-dom';
 
-interface NewWordList {
-  originalWord: string;
-  transalteWord: string;
+interface FolderListProps{
+    folderName: string;
+    usernickname:string;
 }
 
-interface FolderListProps {
-  actualFolder: string;
-  setFolder: (newstring: string) => void;
-  newWord: NewWordList;
-  setNewWord: (originalWord: string, transalteWord: string) => void;
-  usernickname:string;
-}
 
-const FolderList: FC<FolderListProps> = ({ actualFolder, setFolder, newWord, setNewWord, usernickname }) => {
-  const userWordList = useSelector((state: RootState) => state.wordsList[usernickname]).folders;
 
+const FolderList:FC<FolderListProps> = ({folderName, usernickname}) => {
+    const userWordList = useSelector((state: RootState) => state.wordsList[usernickname]).folders[folderName].words;
+    console.log(Object.entries(userWordList))
+    const router = useNavigate();
+
+    function openFolder(e: React.MouseEvent<HTMLDivElement>){
+        e.preventDefault();
+        router(`/folder/${folderName}-${usernickname}`)
+    }
   return (
-    <div className='userListBLock'>
-     {Object.entries(userWordList).map(([folderName, folderinner]) =>
-        
-        <FolderCard folderName = {folderName} numberOfFoldersEl = {Object.keys(folderinner.words).length} usernickname ={usernickname}/>
-        )}
+    <section className={cl.folderList}>
+        <h3>{folderName}</h3>
+        <ul className={cl.folderList__ul}>
+            {Object.keys(userWordList).map((originalWord) => 
 
-    </div>
+                <li>
+
+                    <div className={cl.folderList__li}>
+
+                        <div className={cl.folderList__wordsPair}>
+                            {originalWord} : {userWordList[originalWord].wordtrans}
+                        </div>
+
+                        <div className={cl.folderList__wordsPairInfo}>
+
+                            <PhaseBlock phaseNum = {userWordList[originalWord].studyingPhase}/>
+
+                            <div className={cl.folderList__info}>
+                                Количество повторений: {userWordList[originalWord].numofstud}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+                
+            )}
+
+
+        </ul>
+
+        <div className={cl.folderList__separtionLine}>
+            <div className={cl.line}></div>
+            <div className={cl.folderList__footerText} onClick={e => openFolder(e)}>Открыть папку</div>
+            <div className={cl.line}></div>
+        </div>
+      
+    </section>
   );
 };
 

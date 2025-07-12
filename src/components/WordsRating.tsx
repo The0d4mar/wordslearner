@@ -25,9 +25,9 @@ const WordsRating:FC<WordsRatingProps> = ({usernickname, folderName}) => {
         );
 
   return (
-    <div className={cl.wordListBody__categories}>
+    <section className={cl.wordListBody__categories}>
         <div className={cl.wordListBody__dontStartCategoria}>
-            <h1 className={cl.wordListBody__categoriaHeader}>Только добавлены</h1>
+            <h2 className={cl.wordListBody__categoriaHeader}>Только добавлены</h2>
             {newWords.map(([originWord, infoObj]) => (
             <div key={originWord}>
                 {originWord} — {infoObj.wordtrans}
@@ -36,7 +36,7 @@ const WordsRating:FC<WordsRatingProps> = ({usernickname, folderName}) => {
         </div>
 
         <div className={cl.wordListBody__learnStartCategoria}>
-            <h1 className={cl.wordListBody__categoriaHeader}>Изучены</h1>
+            <h2 className={cl.wordListBody__categoriaHeader}>Изучены</h2>
             {learningWords.map(([originWord, infoObj]) => (
             <div key={originWord}>
                 {originWord} — {infoObj.wordtrans}
@@ -45,14 +45,14 @@ const WordsRating:FC<WordsRatingProps> = ({usernickname, folderName}) => {
         </div>
 
         <div className={cl.wordListBody__learnedStartCategoria}>
-            <h1 className={cl.wordListBody__categoriaHeader}>Усвоены</h1>
+            <h2 className={cl.wordListBody__categoriaHeader}>Усвоены</h2>
             {learnedWords.map(([originWord, infoObj]) => (
             <div key={originWord}>
                 {originWord} — {infoObj.wordtrans}
             </div>
             ))}
         </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,0 +1,41 @@
+.navpanel{
+    display: flex;
+    margin-bottom: 60px;
+    align-items: center;
+    gap: 24px;
+}
+.changerBlock{
+
+    border: 1px solid darkblue;
+    border-radius: 8px;
+    position: relative
+
+}
+
+.changerBlock__background{
+    width: 50%;
+    height: 100%;
+    background-color: rgba(0, 0, 139, 0.244);
+    border-radius: 8px;
+    position: absolute;
+
+    &_right{
+        transform: translateX(100%);
+        transition: 0.3s;
+    }
+
+    &_left{
+        transform: translateX(0);
+        transition: 0.3s;
+    }
+}
+
+
+.changerBlock__container{
+    display: flex;
+}
+
+
+.changerBlock__variants{
+    padding: 11px 16px;
+}

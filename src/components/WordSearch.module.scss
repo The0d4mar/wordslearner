@@ -1,0 +1,23 @@
+.wordsearch{
+    width: 300px;
+    position: relative;
+}
+
+.wordsearch__droplist{
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 11px 16px;
+    margin-top: 8px;
+}
+
+.wordsearch__btn{
+    background-color: transparent;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
+.wordsearch__pair{
+    margin-bottom: 16px;
+}

@@ -6,9 +6,14 @@
 .App__header{
   display: flex;
   align-items: center;
-  justify-content: end;
-  gap: 40px;
+  justify-content: space-between;
   margin-bottom: 60px;
+}
+
+.App__headerCont{
+  display: flex;
+  align-items: center;
+  gap: 40px;
 }
 
 .App__addfolderBtn{
