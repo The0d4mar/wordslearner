@@ -73,12 +73,11 @@ const LoginRegisterPage = () => {
 
           {mode === 'register' && (
             <div className={styles.authPage__field}>
-              <input
-                className={styles.authPage__input}
-                type="text"
+              <MyInput
+                type={InputVariant.text}
                 placeholder="Имя пользователя"
                 value={usernameInput}
-                onChange={(e) => setUsernameInput(e.target.value)}
+                onChange={setUsernameInput}
               />
             </div>
           )}

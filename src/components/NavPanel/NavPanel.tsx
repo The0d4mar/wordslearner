@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
 import MyButton, { ButtonVariants } from '../UI/button/MyButton';
+import ThemeSwitcher from '../ThemeSwitcher';
 interface NavPanelProps{
     changeMethodOfShowing: (flag: string) => void;
     usernickname: string
@@ -58,6 +59,7 @@ const NavPanel:FC<NavPanelProps> = ({changeMethodOfShowing}) => {
         </div>
 
         <div className={style.toglobalPage}>
+            <ThemeSwitcher/>
             <MyButton onClick={e => openGlobalPage(e)} children={'Открыть глобальную страницу'} type={ButtonVariants.simple}/>
         </div>
       

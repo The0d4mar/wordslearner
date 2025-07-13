@@ -12,7 +12,7 @@ module.exports = {
     filename: isDev ? '[name].js' : '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: '/',
+    publicPath: '/wordslearner/',
   },
   devtool: isDev ? 'eval-source-map' : 'source-map',
   resolve: {

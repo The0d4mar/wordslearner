@@ -1,5 +1,6 @@
 // src/components/UI/ThemeSwitcher.tsx
 import React from 'react';
+import MyButton, { ButtonVariants } from './UI/button/MyButton';
 
 const ThemeSwitcher: React.FC = () => {
   const toggleTheme = () => {
@@ -13,7 +14,7 @@ const ThemeSwitcher: React.FC = () => {
     }
   };
 
-  return <button onClick={toggleTheme}>Сменить тему</button>;
+  return <MyButton onClick={toggleTheme} children={'Сменить тему'} type={ButtonVariants.simple}/>;
 };
 
 export default ThemeSwitcher;

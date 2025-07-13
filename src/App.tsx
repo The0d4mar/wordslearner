@@ -8,7 +8,6 @@ import LoginRegisterPage from './pages/LoginRegisterPage';
 import { useSelector } from 'react-redux';
 import { RootState } from './state/store';
 import GlobalPage from './pages/GlobalPage';
-import ThemeSwitcher from './components/ThemeSwitcher';
 
 function App() {
   
@@ -29,7 +28,6 @@ function App() {
 
   return (
     <BrowserRouter>
-    <ThemeSwitcher/>
       <Routes>
         <Route path='/folder' element ={<MainPage/>}/>
         <Route path='/globalPage/:usernickname' element ={<GlobalPage/>}/>

@@ -2,8 +2,8 @@
 @use '../../styles/mixins' as *;
 
 .wordcard {
-  width: $card-size;
-  height: $card-size;
+  width: $card-size !important;
+  height: $card-size !important;
   border-radius: $card-radius;
   position: absolute;
   top: $center;
@@ -11,14 +11,14 @@
   transform: translate(-50%, -50%);
   background-color: var(--color-background);  
 
-  &__position_left {
+  &_left {
     top: $center !important;
     left: 25%;
     transform: translate(-50%, -50%) rotateY(-60deg);
     animation: wordcardLeftKeyframe 200ms linear;
   }
 
-  &__position_right {
+  &_right {
     top: $center !important;
     left: 75%;
     transform: translate(-50%, -50%) rotateY(60deg);
@@ -26,8 +26,8 @@
   }
 
   &__cont {
-    width: 100%;
-    height: 100%;
+    width: $card-size;
+    height: $card-size;
     border-radius: inherit;
     background-color: var(--color-primary);
     position: absolute;
@@ -57,8 +57,8 @@
     font-weight: 500;
 
     &_transform {
-      animation: wordChange 700ms linear;
-      transition: transform 1s;
+      animation: wordChange 500ms linear;
+      transition: transform 0.5s;
       transform: translate(-50%, -50%) rotateX(360deg);
     }
   }
@@ -106,7 +106,7 @@
   0% {
     opacity: 0.3;
   }
-  50% {
+  70% {
     opacity: 0;
   }
   100% {
