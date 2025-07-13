@@ -30,10 +30,15 @@
 
 }
 
-
 .wordListBody__info{
     display: flex;
     gap: 24px;
     font-size: 18px;
+    align-items: center;
 
+}
+
+.wordListBody__categories{
+    margin-bottom: 60px;
+    text-align: center;
 }

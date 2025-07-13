@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import MyButton, { ButtonVariants } from './UI/button/MyButton';
+import MyButton, { ButtonVariants } from '../UI/button/MyButton';
 import cl from './FolderCard.module.scss'
 
 interface FolderCardBtnBlockProps{

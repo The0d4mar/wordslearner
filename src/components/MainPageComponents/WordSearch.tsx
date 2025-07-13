@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../state/store';
-import MyInput, { InputVariant } from './UI/input/MyInput';
+import { RootState } from '../../state/store';
+import MyInput, { InputVariant } from '../UI/input/MyInput';
 
 import cl from './WordSearch.module.scss'
 import { useNavigate } from 'react-router-dom';

@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react'
 import cl from './FolderCard.module.scss'
 import { useDispatch} from 'react-redux';
-import MyInput, { InputVariant } from './UI/input/MyInput';
-import { CorrectFolderName, DeleteFolder } from '../state/words/WordsStorage';
+import MyInput, { InputVariant } from '../UI/input/MyInput';
+import { CorrectFolderName, DeleteFolder } from '../../state/words/WordsStorage';
 import { useNavigate } from 'react-router-dom';
-import MyButton, { ButtonVariants } from './UI/button/MyButton';
+import MyButton, { ButtonVariants } from '../UI/button/MyButton';
 import FolderCardBtnBlock from './FolderCardBtnBlock';
 
 interface FolderCardProps{

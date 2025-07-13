@@ -1,10 +1,10 @@
 import React, {FC, useState} from 'react';
 import style from './NavPanel.module.scss'
-import WordSearch from './WordSearch';
+import WordSearch from '../MainPageComponents/WordSearch';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from '../state/store';
-import MyButton, { ButtonVariants } from './UI/button/MyButton';
+import { RootState } from '../../state/store';
+import MyButton, { ButtonVariants } from '../UI/button/MyButton';
 interface NavPanelProps{
     changeMethodOfShowing: (flag: string) => void;
     usernickname: string

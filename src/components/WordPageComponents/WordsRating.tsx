@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../state/store';
+import { RootState } from '../../state/store';
 import cl from './WordLists.module.scss'
 
 

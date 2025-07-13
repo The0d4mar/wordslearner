@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
 import MainPage from './pages/MainPage';
-import WordLists from './components/WordLists';
+import WordLists from './components/WordPageComponents/WordLists';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import AddFolder from './components/AddFolder';
+import AddFolder from './components/AddFolderPageComponents/AddFolder';
 import LoginRegisterPage from './pages/LoginRegisterPage';
 import { useSelector } from 'react-redux';
 import { RootState } from './state/store';

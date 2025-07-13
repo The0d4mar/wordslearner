@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../state/store';
 import { CopyNewFolder } from '../state/words/WordsStorage';
 import { useNavigate } from 'react-router-dom';
-import FolderCard from '../components/FolderCard';
+import FolderCard from '../components/MainPageComponents/FolderCard';
 import MyButton, { ButtonVariants } from '../components/UI/button/MyButton';
 
 

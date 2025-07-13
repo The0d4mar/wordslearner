@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../state/store';
+import { RootState } from '../../state/store';
 import cl from './FolderList.module.scss'
-import PhaseBlock from './UI/phaseblock/PhaseBlock';
+import PhaseBlock from '../UI/phaseblock/PhaseBlock';
 import { useNavigate } from 'react-router-dom';
 
 interface FolderListProps{

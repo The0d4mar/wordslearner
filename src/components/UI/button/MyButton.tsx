@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import cl from './MyButton.module.scss'
 
 
@@ -17,10 +17,11 @@ interface MyButtonProps{
 
 
 const MyButton:FC<MyButtonProps> = ({type = 'simple', onClick, children}) => {
+    const [defaultClass] = useState([cl.defaultBtn, type == 'simple' ? cl.btnSimple : type == 'delete' ? cl.btnDelete : type == 'add' ? cl.btnAdd : cl.btnCancel])
     
     return(
         <button 
-            className={type == 'simple' ? cl.btn : type == 'delete' ? cl.btnDelete : type == 'add' ? cl.btnAdd : cl.btnCancel}
+            className={defaultClass.join(' ')}
             onClick={e =>{onClick(e)}}
         >
             {children}

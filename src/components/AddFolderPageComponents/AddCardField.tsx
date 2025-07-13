@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import cl from './AddFolder.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../state/store';
-import { ChangeOriginalWord, ChangeTranslateWord, DeletePair } from '../state/addfolder/FolderAdder';
-import MyInput, { InputVariant } from './UI/input/MyInput';
-import MyButton, { ButtonVariants } from './UI/button/MyButton';
+import { RootState } from '../../state/store';
+import { ChangeOriginalWord, ChangeTranslateWord, DeletePair } from '../../state/addfolder/FolderAdder';
+import MyInput, { InputVariant } from '../UI/input/MyInput';
+import MyButton, { ButtonVariants } from '../UI/button/MyButton';
 
 
 interface AddCardFieldProps {

@@ -1,29 +1,35 @@
-.btn{
-    background-color: transparent;
-    padding: 4px 8px;
+
+.defaultBtn{
+
+    padding: 9px 13px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    background-color: transparent ;
+    width: fit-content !important;
+    white-space: nowrap;
+
+}
+
+
+.btnSimple{
     border: 1px solid darkblue;
-    border-radius: 4px;
-    width: 100%;
+    
 }
 .btnDelete{
-    background-color: red;
-    padding: 4px 8px;
+    background-color: red !important;
     border: 1px solid rgb(60, 22, 22);
     color: white;
-    width: 100%;
+    
 }
 
 .btnAdd{
-    background-color: rgb(255, 255, 255);
-    padding: 4px 8px;
+    background-color: rgb(255, 255, 255) !important;
     border: 1px solid rgb(18, 240, 11);
-    border-radius: 4px;
-    width: 100%;
+    
 }
 
 .btnCancel{
     background-color: rgb(214, 184, 184);
-    padding: 4px 8px;
-    border: 1px solid;
-    width: 100%;
+    border: 1px solid red;
+    
 }

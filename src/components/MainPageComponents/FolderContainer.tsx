@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import {useSelector } from 'react-redux';
-import { RootState } from '../state/store';
+import { RootState } from '../../state/store';
 import FolderCard from './FolderCard';
 import FolderList from './FolderList';
 

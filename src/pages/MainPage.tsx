@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../state/store';
 import { useNavigate } from 'react-router-dom';
 
-import FolderContainer from '../components/FolderContainer';
+import FolderContainer from '../components/MainPageComponents/FolderContainer';
 import MyButton, { ButtonVariants } from '../components/UI/button/MyButton';
-import NavPanel from '../components/NavPanel';
+import NavPanel from '../components/NavPanel/NavPanel';
 import { LogoutMethod } from '../state/autheredUser/AutheredUser';
 
 function MainPage() {

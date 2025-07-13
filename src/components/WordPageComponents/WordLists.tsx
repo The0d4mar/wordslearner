@@ -1,13 +1,13 @@
 import React, {FC, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../state/store';
+import { RootState } from '../../state/store';
 import { useNavigate, useParams } from 'react-router-dom';
 import cl from './WordLists.module.scss'
 import { Link } from 'react-router-dom';
 import WordCard from './WordCard';
-import MyButton, { ButtonVariants } from './UI/button/MyButton';
+import MyButton, { ButtonVariants } from '../UI/button/MyButton';
 
-import { AddNewPair, ChangeFolderName, ChangeOriginalWord, ChangePrivateFlag, ChangeStatistic, ChangeTranslateWord, ChangeUniqeCode } from '../state/addfolder/FolderAdder';
+import { AddNewPair, ChangeFolderName, ChangeOriginalWord, ChangePrivateFlag, ChangeStatistic, ChangeTranslateWord, ChangeUniqeCode } from '../../state/addfolder/FolderAdder';
 import WordsRating from './WordsRating';
 
 
