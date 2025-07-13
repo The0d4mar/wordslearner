@@ -1,35 +1,60 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
 
-.defaultBtn{
+.defaultBtn {
+  padding: 9px 13px !important;
+  border-radius: $radiusMedium !important;
+  font-size: 14px !important;
+  background-color: transparent;
+  width: fit-content !important;
+  white-space: nowrap;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
 
-    padding: 9px 13px !important;
-    border-radius: 8px !important;
-    font-size: 14px !important;
-    background-color: transparent ;
-    width: fit-content !important;
-    white-space: nowrap;
+  &:hover {
+    background-color: var(--color-hover-bg, rgba(0, 0, 0, 0.05));
+  }
 
+  @include respondTo(mobile) {
+    font-size: 13px !important;
+    padding: 8px 12px !important;
+  }
 }
 
-
-.btnSimple{
-    border: 1px solid darkblue;
-    
-}
-.btnDelete{
-    background-color: red !important;
-    border: 1px solid rgb(60, 22, 22);
-    color: white;
-    
+.btnSimple {
+  border: 1px solid var(--color-border);
+  background-color: transparent;
+  color: var(--color-text);
 }
 
-.btnAdd{
-    background-color: rgb(255, 255, 255) !important;
-    border: 1px solid rgb(18, 240, 11);
-    
+.btnDelete {
+  background-color: var(--color-danger, #ff4d4f) !important;
+  border: 1px solid var(--color-danger-border, #a80000);
+  color: var(--color-on-danger, #fff);
+
+  &:hover {
+    background-color: var(--color-danger);
+  }
 }
 
-.btnCancel{
-    background-color: rgb(214, 184, 184);
-    border: 1px solid red;
-    
+.btnAdd {
+  background-color: var(--color-add-bg) !important;
+  border: 1px solid var(--color-success-border, #12f00b);
+  color: var(--color-text);
+
+  &:hover {
+    background-color: var(--color-hover-bg, rgba(0, 0, 0, 0.05));
+  }
+}
+
+.btnCancel {
+  background-color: var(--color-cancel-bg, #d6b8b8);
+  border: 1px solid var(--color-danger);
+  color: var(--color-text);
+
+  &:hover {
+    background-color: var(--color-cancel-bg);
+  }
 }

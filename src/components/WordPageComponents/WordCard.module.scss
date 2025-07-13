@@ -1,8 +1,5 @@
-// Переменные
-$card-size: 200px;
-$card-color: rgb(125, 176, 196);
-$card-radius: 8px;
-$center: 50%;
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .wordcard {
   width: $card-size;
@@ -12,89 +9,106 @@ $center: 50%;
   top: $center;
   left: $center;
   transform: translate(-50%, -50%);
+  background-color: var(--color-background);  
 
-  &_left {
+  &__position_left {
     top: $center !important;
     left: 25%;
     transform: translate(-50%, -50%) rotateY(-60deg);
-    animation: wordcard-left-keyframe 200ms linear;
+    animation: wordcardLeftKeyframe 200ms linear;
   }
 
-  &_right {
+  &__position_right {
     top: $center !important;
     left: 75%;
     transform: translate(-50%, -50%) rotateY(60deg);
-    animation: wordcard-right-keyframe 200ms linear;
+    animation: wordcardRightKeyframe 200ms linear;
   }
 
   &__cont {
-    width: $card-size;
-    height: $card-size;
-    border-radius: $card-radius;
-    background-color: $card-color;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background-color: var(--color-primary);
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &_rotate {
-      transition: 1s;
+      transition: transform 0.6s ease;
       transform: rotateX(180deg);
     }
   }
 
   &__words {
-    color: black;
+    color: var(--color-text);
     position: absolute;
     top: $center;
     left: $center;
     transform: translate(-50%, -50%);
     z-index: 10;
+    font-size: $fontSizeLarge;
+    font-weight: 500;
 
-    &--transform {
-      animation: word-change 700ms linear;
-      transition: 1s;
+    &_transform {
+      animation: wordChange 700ms linear;
+      transition: transform 1s;
       transform: translate(-50%, -50%) rotateX(360deg);
+    }
+  }
+
+  // Адаптив
+  @include respondTo(mobile) {
+    width: 160px;
+    height: 160px;
+
+    &__cont {
+      width: 160px;
+      height: 160px;
+    }
+
+    &__words {
+      font-size: $fontSizeBase;
     }
   }
 }
 
-// Анимации
-@keyframes wordcard-left-keyframe {
+// Keyframes
+@keyframes wordcardLeftKeyframe {
   from {
     left: 25%;
     transform: translate(-50%, -50%) rotateY(-60deg);
   }
-
   to {
     left: 50%;
     transform: translate(-50%, -50%) rotateY(0deg);
   }
 }
 
-@keyframes wordcard-right-keyframe {
+@keyframes wordcardRightKeyframe {
   from {
     left: 75%;
     transform: translate(-50%, -50%) rotateY(60deg);
   }
-
   to {
     left: 50%;
     transform: translate(-50%, -50%) rotateY(0deg);
   }
 }
 
-@keyframes word-change {
+@keyframes wordChange {
   0% {
     opacity: 0.3;
   }
-
   50% {
     opacity: 0;
   }
-
   100% {
     opacity: 1;
   }

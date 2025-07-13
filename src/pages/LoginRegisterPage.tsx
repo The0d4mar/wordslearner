@@ -64,17 +64,17 @@ const LoginRegisterPage = () => {
   };
 
   return (
-    <div className={styles['auth-page']}>
-      <div className={styles['auth-page__container']}>
-        <form onSubmit={handleSubmit} className={styles['auth-page__form']}>
-          <h2 className={styles['auth-page__title']}>
+    <div className={styles.authPage}>
+      <div className={styles.authPage__container}>
+        <form onSubmit={handleSubmit} className={styles.authPage__form}>
+          <h2 className={styles.authPage__title}>
             {mode === 'login' ? 'Вход' : 'Регистрация'}
           </h2>
 
           {mode === 'register' && (
-            <div className={styles['auth-page__field']}>
+            <div className={styles.authPage__field}>
               <input
-                className={styles['auth-page__input']}
+                className={styles.authPage__input}
                 type="text"
                 placeholder="Имя пользователя"
                 value={usernameInput}
@@ -83,7 +83,7 @@ const LoginRegisterPage = () => {
             </div>
           )}
 
-          <div className={styles['auth-page__field']}>
+          <div className={styles.authPage__field}>
             <MyInput
               type={InputVariant.text}
               placeholder="Логин или email"
@@ -92,7 +92,7 @@ const LoginRegisterPage = () => {
             />
           </div>
 
-          <div className={styles['auth-page__field']}>
+          <div className={styles.authPage__field}>
             <MyInput
               type={InputVariant.password}
               placeholder="Пароль"
@@ -101,16 +101,16 @@ const LoginRegisterPage = () => {
             />
           </div>
 
-          {error && <div className={styles['auth-page__error']}>{error}</div>}
+          {error && <div className={styles.authPage__error}>{error}</div>}
 
-          <button type="submit" className={styles['auth-page__submit']}>
+          <button type="submit" className={styles.authPage__submit}>
             {mode === 'login' ? 'Войти' : 'Зарегистрироваться'}
           </button>
 
-          <p className={styles['auth-page__switch']}>
+          <p className={styles.authPage__switch}>
             {mode === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}{' '}
             <span
-              className={styles['auth-page__link']}
+              className={styles.authPage__link}
               onClick={() => {
                 setMode(mode === 'login' ? 'register' : 'login');
                 setError('');

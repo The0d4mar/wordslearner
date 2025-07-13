@@ -1,10 +1,25 @@
-.input{
-    width: 100%;
-    box-sizing: border-box;
-    padding: 11px 16px;
-    border: 1px solid darkblue;
-    border-radius: 4px;
-    outline: none;
-    font-size: 1rem;
-    
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: $radiusSmall;
+  outline: none;
+  font-size: 1rem;
+  background-color: var(--background-input);
+  color: var(--color-text);
+  transition: border-color 0.2s, background-color 0.2s;
+
+  &:focus {
+    border-color: var(--color-accent, #2563eb);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  }
+
+  @include respondTo(mobile) {
+    font-size: 0.95rem;
+    padding: 10px 14px;
+  }
 }

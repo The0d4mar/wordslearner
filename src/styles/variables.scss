@@ -1,0 +1,47 @@
+// styles/variables.scss
+
+// Цвета светлой темы
+$colorPrimary: #423ED8;
+$colorSecondary: #51CFFF;
+$colorAccent: #d1cf50;
+$colorDanger: #dc2626;
+$colorBackground: #ffffff;
+$colorText: #111827;
+
+// Цвета тёмной темы
+$colorPrimaryDark: #3b82f6;
+$colorSecondaryDark: #60a5fa;
+$colorBackgroundDark: #0A092D;
+$colorTextDark: #f3f4f6;
+
+// Размеры
+$spacingSmall: 0.5rem;
+$spacingMedium: 1rem;
+$spacingLarge: 2rem;
+$spacingXLarge: 3rem;
+$spacingXXLarge: 4rem;
+$borderRadius: 0.5rem;
+$transitionDuration: 0.3s;
+$radiusMedium: 8px;
+
+// Типографика
+$fontSizeSmall: 0.875rem;
+$fontSizeBase: 1rem;
+$fontSizeLarge: 1.25rem;
+
+// Брейкпоинты
+$breakpointMobile: 480px;
+$breakpointTablet: 768px;
+$breakpointDesktop: 1024px;
+
+
+// Размеры карточки
+$card-size: 200px;
+$card-radius: 8px;
+
+// Цвета карточки
+$card-color: rgb(125, 176, 196);
+
+// Центрирование
+$center: 50%;
+$radiusSmall: 4px; // или другое значение

@@ -1,12 +1,29 @@
-.globalPage__header{
+@use '../styles/variables.scss' as *;
+@use '../styles/mixins' as *;
+
+.globalPage {
+  color: var(--color-text);
+  &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 60px;
-}
+    margin-bottom: $spacingXXLarge;
+    color: var(--color-text);
 
-.GlobalPage__main{
+    @include respondTo(mobile) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacingMedium;
+    }
+  }
+
+  &__main {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: $spacingXLarge;
+
+    @include respondTo(mobile) {
+      gap: $spacingLarge;
+    }
+  }
 }

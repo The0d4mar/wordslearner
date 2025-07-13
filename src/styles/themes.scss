@@ -1,0 +1,10 @@
+// styles/themes.scss
+@use 'mixins' as *;
+
+:root {
+  @include theme-light;
+}
+
+:root[data-theme='dark'] {
+  @include theme-dark;
+}

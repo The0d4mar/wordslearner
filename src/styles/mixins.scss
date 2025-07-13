@@ -1,0 +1,44 @@
+// styles/mixins.scss
+@use 'variables' as *;
+
+@mixin theme-light {
+  --color-primary: #{$colorPrimary};
+  --color-secondary: #{$colorSecondary};
+  --color-accent: #{$colorAccent};
+  --color-danger: #{$colorDanger};
+  --color-background: #{$colorBackground};
+  --color-text: #{$colorText};
+  --color-border: #1e3a8a;
+  --color-muted-text: rgba(188, 174, 174, 0.762);
+  --color-background-2: rgba(0, 0, 139, 0.2);
+}
+
+@mixin theme-dark {
+  --color-primary: #{$colorPrimaryDark};
+  --color-secondary: #{$colorSecondaryDark};
+  --color-accent: #{$colorAccent};
+  --color-danger: #{$colorDanger};
+  --color-background: #{$colorBackgroundDark};
+  --color-text: #{$colorTextDark};
+  --color-border: #cad3ec;
+  --color-muted-text: rgba(234, 211, 211, 0.762);
+  --color-background-2: rgba(149, 149, 206, 0.2);
+}
+
+@mixin respondTo($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 600px) {
+      @content;
+    }
+  }
+  @else if $breakpoint == tablet {
+    @media (max-width: 900px) {
+      @content;
+    }
+  }
+  @else if $breakpoint == desktop {
+    @media (min-width: 901px) {
+      @content;
+    }
+  }
+}

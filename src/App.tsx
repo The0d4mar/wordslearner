@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import './App.scss';
 import MainPage from './pages/MainPage';
 import WordLists from './components/WordPageComponents/WordLists';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
@@ -8,10 +8,18 @@ import LoginRegisterPage from './pages/LoginRegisterPage';
 import { useSelector } from 'react-redux';
 import { RootState } from './state/store';
 import GlobalPage from './pages/GlobalPage';
+import ThemeSwitcher from './components/ThemeSwitcher';
 
 function App() {
   
   const isAuthorized = useSelector((state: RootState) => state.autherUser.isAuthorized);
+
+  useEffect(() => {
+    const userPref = localStorage.getItem('theme');
+    if (userPref === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  }, []);
 
   if (!isAuthorized) {
     <Navigate to="/auth" replace />;
@@ -21,6 +29,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <ThemeSwitcher/>
       <Routes>
         <Route path='/folder' element ={<MainPage/>}/>
         <Route path='/globalPage/:usernickname' element ={<GlobalPage/>}/>

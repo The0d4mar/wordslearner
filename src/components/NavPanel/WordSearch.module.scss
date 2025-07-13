@@ -1,27 +1,66 @@
-.wordsearch__field{
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.wordsearch {
+  color: var(--color-text);
+  &__field {
     display: flex;
     justify-content: center;
-    position: relative;
     align-items: center;
     flex-direction: column;
+    position: relative;
     width: 100%;
-}
+    padding: $spacingSmall;
 
-.wordsearch__droplist{
+    @include respondTo(mobile) {
+      padding: $spacingSmall 0;
+    }
+  }
+
+  &__droplist {
     position: absolute;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 8px;
-    padding: 11px 16px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: $borderRadius;
+    padding: $spacingSmall $spacingMedium;
     margin-top: 8px;
-}
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 
-.wordsearch__btn{
+    @include respondTo(mobile) {
+      max-width: 90vw;
+    }
+  }
+
+  &__pair {
+    margin-bottom: $spacingMedium;
+    font-size: $fontSizeBase;
+    color: var(--color-text);
+
+    @include respondTo(mobile) {
+      font-size: $fontSizeSmall;
+    }
+  }
+
+  &__btn {
     background-color: transparent;
     padding: 4px 6px;
     border-radius: 4px;
-}
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    font-size: $fontSizeBase;
+    transition: background-color $transitionDuration;
 
-.wordsearch__pair{
-    margin-bottom: 16px;
+    &:hover {
+      background-color: var(--color-muted-text, #f0f0f0);
+    }
+
+    @include respondTo(mobile) {
+      padding: 2px 4px;
+      font-size: $fontSizeSmall;
+    }
+  }
 }

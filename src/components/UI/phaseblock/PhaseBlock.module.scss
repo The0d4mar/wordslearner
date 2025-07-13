@@ -1,48 +1,79 @@
-.phaseBLock{
-    height: 13px;
-    &__cont{
-        display: flex;
-        align-items: end;
-        gap:4px;
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
 
+.phaseBLock {
+  height: 13px;
+
+  &__cont {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  &__bar {
+    &_1,
+    &_2,
+    &_3 {
+      background-color: var(--color-border); // заменён darkblue
     }
-    &__bar{
-        &_1{
-            height: 5px;
-            width: 3px;
-            background-color: darkblue;
-        }
 
-         &_2{
-            height: 9px;
-            width: 4px;
-            background-color: darkblue;
-        }
-
-         &_3{
-            height: 13px;
-            width: 3px;
-            background-color: darkblue;
-        }
-
-        &_1_active{
-            height: 5px;
-            width: 3px;
-            background-color: rgb(11, 222, 11);
-        }
-
-         &_2_active{
-            height: 9px;
-            width: 4px;
-            background-color: rgb(11, 222, 11);
-        }
-
-         &_3_active{
-            height: 13px;
-            width: 3px;
-            background-color: rgb(11, 222, 11);
-        }
-
-        
+    &_1 {
+      height: 5px;
+      width: 3px;
     }
+
+    &_2 {
+      height: 9px;
+      width: 4px;
+    }
+
+    &_3 {
+      height: 13px;
+      width: 3px;
+    }
+
+    &_1_active,
+    &_2_active,
+    &_3_active {
+      background-color: var(--color-success, #0bde0b); // возможность замены success цвета в переменных
+    }
+
+    &_1_active {
+      height: 5px;
+      width: 3px;
+    }
+
+    &_2_active {
+      height: 9px;
+      width: 4px;
+    }
+
+    &_3_active {
+      height: 13px;
+      width: 3px;
+    }
+  }
+
+  @include respondTo(mobile) {
+    &__cont {
+      gap: 2px;
+    }
+
+    &__bar {
+      &_1, &_1_active {
+        height: 4px;
+        width: 2px;
+      }
+
+      &_2, &_2_active {
+        height: 7px;
+        width: 3px;
+      }
+
+      &_3, &_3_active {
+        height: 10px;
+        width: 2px;
+      }
+    }
+  }
 }
