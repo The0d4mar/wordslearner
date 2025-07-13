@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import style from './NavPanel.module.scss'
-import WordSearch from '../MainPageComponents/WordSearch';
+import WordSearch from './WordSearch';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';

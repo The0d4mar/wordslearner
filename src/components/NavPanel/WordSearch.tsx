@@ -77,14 +77,16 @@ const WordSearch: React.FC = () => {
 
   return (
     <div className={cl.wordsearch}>
-      <MyInput
+      <div className={cl.wordsearch__field}>
+        <MyInput
 
-        type={InputVariant.text}
-        placeholder={'Введите слово на русском или английском...'}
-        value={query}
-        onChange={setQuery}
-      
-      />
+          type={InputVariant.text}
+          placeholder={'Введите слово на русском или английском...'}
+          value={query}
+          onChange={setQuery}
+        
+        />
+      </div>
       <div className={cl.wordsearch__droplist} style={{display: query == '' ? 'none' : 'block'}}>
         {query && results.length === 0 && (
           <div>Такого слова нет.</div>

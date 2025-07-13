@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoginMethod } from '../state/autheredUser/AutheredUser';
 import { AddNewUser } from '../state/words/WordsStorage';
 import styles from './LoginRegisterPage.module.scss';
+import MyInput, { InputVariant } from '../components/UI/input/MyInput';
 
 const LoginRegisterPage = () => {
   const [mode, setMode] = useState<'login' | 'register'>('login');
@@ -63,55 +64,63 @@ const LoginRegisterPage = () => {
   };
 
   return (
-    <div className={styles.page}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <h2>{mode === 'login' ? 'Вход' : 'Регистрация'}</h2>
+    <div className={styles['auth-page']}>
+      <div className={styles['auth-page__container']}>
+        <form onSubmit={handleSubmit} className={styles['auth-page__form']}>
+          <h2 className={styles['auth-page__title']}>
+            {mode === 'login' ? 'Вход' : 'Регистрация'}
+          </h2>
 
-        {mode === 'register' && (
-          <div className={styles.field}>
-            <input
-              type="text"
-              placeholder="Имя пользователя"
-              value={usernameInput}
-              onChange={(e) => setUsernameInput(e.target.value)}
+          {mode === 'register' && (
+            <div className={styles['auth-page__field']}>
+              <input
+                className={styles['auth-page__input']}
+                type="text"
+                placeholder="Имя пользователя"
+                value={usernameInput}
+                onChange={(e) => setUsernameInput(e.target.value)}
+              />
+            </div>
+          )}
+
+          <div className={styles['auth-page__field']}>
+            <MyInput
+              type={InputVariant.text}
+              placeholder="Логин или email"
+              value={loginInput}
+              onChange={setLoginInput}
             />
           </div>
-        )}
 
-        <div className={styles.field}>
-          <input
-            type="text"
-            placeholder="Логин или email"
-            value={loginInput}
-            onChange={(e) => setLoginInput(e.target.value)}
-          />
-        </div>
+          <div className={styles['auth-page__field']}>
+            <MyInput
+              type={InputVariant.password}
+              placeholder="Пароль"
+              value={passwordInput}
+              onChange={setPasswordInput}
+            />
+          </div>
 
-        <div className={styles.field}>
-          <input
-            type="password"
-            placeholder="Пароль"
-            value={passwordInput}
-            onChange={(e) => setPasswordInput(e.target.value)}
-          />
-        </div>
+          {error && <div className={styles['auth-page__error']}>{error}</div>}
 
-        {error && <div className={styles.error}>{error}</div>}
+          <button type="submit" className={styles['auth-page__submit']}>
+            {mode === 'login' ? 'Войти' : 'Зарегистрироваться'}
+          </button>
 
-        <button type="submit" className={styles.submit}>
-          {mode === 'login' ? 'Войти' : 'Зарегистрироваться'}
-        </button>
-
-        <p className={styles.switch}>
-          {mode === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}{' '}
-          <span onClick={() => {
-            setMode(mode === 'login' ? 'register' : 'login');
-            setError('');
-          }}>
-            {mode === 'login' ? 'Зарегистрироваться' : 'Войти'}
-          </span>
-        </p>
-      </form>
+          <p className={styles['auth-page__switch']}>
+            {mode === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}{' '}
+            <span
+              className={styles['auth-page__link']}
+              onClick={() => {
+                setMode(mode === 'login' ? 'register' : 'login');
+                setError('');
+              }}
+            >
+              {mode === 'login' ? 'Зарегистрироваться' : 'Войти'}
+            </span>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };

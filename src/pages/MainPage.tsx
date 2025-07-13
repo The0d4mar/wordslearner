@@ -19,7 +19,7 @@ function MainPage() {
   const router = useNavigate();
   const dispatch = useDispatch()
 
-  // 🛡️ Защита страницы: редирект, если нет пользователя
+
   useEffect(() => {
     if (!usernickname) {
       router('/auth');

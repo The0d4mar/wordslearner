@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import cl from './MyInput.module.scss'
 export enum InputVariant{
     text = 'text',
+    password = 'password'
 }
 
 

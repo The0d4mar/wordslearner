@@ -1,6 +1,10 @@
-.wordsearch{
-    width: 300px;
+.wordsearch__field{
+    display: flex;
+    justify-content: center;
     position: relative;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
 }
 
 .wordsearch__droplist{
