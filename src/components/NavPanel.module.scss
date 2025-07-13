@@ -2,8 +2,15 @@
     display: flex;
     margin-bottom: 60px;
     align-items: center;
+    justify-content: space-between;
+}
+
+.navpanel__leftBlock{
+    display: flex;
+    align-items: center;
     gap: 24px;
 }
+
 .changerBlock{
 
     border: 1px solid darkblue;

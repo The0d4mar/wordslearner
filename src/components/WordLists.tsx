@@ -20,6 +20,7 @@ const WordLists:FC = () => {
     const folderDataCreator = useSelector((state: RootState) => state.wordsList[usernickname]).folders[folderName].dataofcreaton
     const privateFlag = useSelector((state: RootState) => state.wordsList[usernickname]).folders[folderName].publicFlag
     const uniqeCode = useSelector((state: RootState) => state.wordsList[usernickname]).folders[folderName].uniqeCode
+    console.log(uniqeCode)
     const keyList = Object.keys(userWordList)
     const [wordInfo, setWordInfo] = useState({actualLength: keyList.length, actualPoz: 1})
     const [actualWord, setActualWord] = useState<string>(keyList[wordInfo.actualPoz - 1])

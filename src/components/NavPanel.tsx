@@ -1,6 +1,10 @@
 import React, {FC, useState} from 'react';
 import style from './NavPanel.module.scss'
 import WordSearch from './WordSearch';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../state/store';
+import MyButton, { ButtonVariants } from './UI/button/MyButton';
 interface NavPanelProps{
     changeMethodOfShowing: (flag: string) => void;
     usernickname: string
@@ -9,6 +13,9 @@ const NavPanel:FC<NavPanelProps> = ({changeMethodOfShowing}) => {
 
     const [changerViewFlag, setChangerViewFlag] = useState<string>('folders')
     const [changerBCstyles, setChangerBCstyles] = useState([style.changerBlock__background])
+    const autherUserNickName = useSelector((state:RootState) => state.autherUser).currentUser
+
+    const router = useNavigate();
 
     const changeChangerFlag = (e: React.MouseEvent<HTMLDivElement>) =>{
         e.stopPropagation();
@@ -24,22 +31,34 @@ const NavPanel:FC<NavPanelProps> = ({changeMethodOfShowing}) => {
         
     }
 
+    const openGlobalPage = (e: React.MouseEvent<HTMLButtonElement>) =>{
+        e.preventDefault();
+        router(`/globalPage/:${autherUserNickName}`)
+
+    }
+
   return (
     <nav className={style.navpanel}>
-        <div className={style.ChangeViewBlock}>
+        <div className={style.navpanel__leftBlock}>
+            <div className={style.ChangeViewBlock}>
 
-            <div className={style.changerBlock} onClick={e => changeChangerFlag(e)}>
-                <div className={changerBCstyles.join(' ')}></div>
-                <div className={style.changerBlock__container}>
-                    <div className={style.changerBlock__variants}>Папки</div>
-                    <div className={style.changerBlock__variants}>Список</div>
+                <div className={style.changerBlock} onClick={e => changeChangerFlag(e)}>
+                    <div className={changerBCstyles.join(' ')}></div>
+                    <div className={style.changerBlock__container}>
+                        <div className={style.changerBlock__variants}>Папки</div>
+                        <div className={style.changerBlock__variants}>Список</div>
+                    </div>
                 </div>
+
             </div>
 
+            <div className={style.searchWordBlock}>
+                <WordSearch/>
+            </div>
         </div>
 
-        <div className={style.searchWordBlock}>
-            <WordSearch/>
+        <div className={style.toglobalPage}>
+            <MyButton onClick={e => openGlobalPage(e)} children={'Открыть глобальную страницу'} type={ButtonVariants.simple}/>
         </div>
       
     </nav>

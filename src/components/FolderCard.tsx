@@ -5,20 +5,30 @@ import MyInput, { InputVariant } from './UI/input/MyInput';
 import { CorrectFolderName, DeleteFolder } from '../state/words/WordsStorage';
 import { useNavigate } from 'react-router-dom';
 import MyButton, { ButtonVariants } from './UI/button/MyButton';
+import FolderCardBtnBlock from './FolderCardBtnBlock';
 
 interface FolderCardProps{
     folderName: string;
     numberOfFoldersEl:number;
     usernickname:string;
+    globalLocalFlag?:string;
+    copyCardFunc? : () => void;
 }
 
 
 
-const  FolderCard:FC<FolderCardProps>= ({folderName, numberOfFoldersEl, usernickname}) => {
+const  FolderCard:FC<FolderCardProps>= ({folderName, numberOfFoldersEl, usernickname, globalLocalFlag = 'local', copyCardFunc}) => {
 const [changeFolderName, setChangeFolderName] = useState<boolean>(false)
 const [newFolderName, setNewFolderName] = useState('');
 const dispatch = useDispatch();
 const router = useNavigate()
+
+
+if (copyCardFunc == undefined){
+    copyCardFunc = () =>{
+        
+    }
+}
 
 const changeNewFolderName = (newName:string) =>{
     setNewFolderName(newName);
@@ -91,13 +101,24 @@ return(
                  : folderName}
                 
             </div>
+            {globalLocalFlag == 'local' ?
+            
+                <FolderCardBtnBlock
+            
+                openFolder ={openFolder}
+                folderName = {folderName}
+                changeFolderFlag = {changeFolderFlag}
+                changeFolderName = {changeFolderName}
+                deleteFolder = {deleteFolder}
+            
+                />
 
-            <div className={cl.folderCard__btnBlock}>
-                <MyButton type = {ButtonVariants.simple} onClick={e => openFolder(e, folderName)} children={'Open'}/>
-                <MyButton type = {ButtonVariants.simple} onClick = {changeFolderFlag} children={changeFolderName ? 'Cancel' : 'Edit'}/>
-                <MyButton type = {ButtonVariants.delete} onClick={e =>{deleteFolder(e)}} children={'Delete'}/>
+                :
+                <MyButton onClick={copyCardFunc} children={'Копировать папку'} type={ButtonVariants.add}/>
+        
+        
+            }
 
-            </div>
         </div>
 
     </section>

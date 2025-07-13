@@ -7,6 +7,7 @@ import AddFolder from './components/AddFolder';
 import LoginRegisterPage from './pages/LoginRegisterPage';
 import { useSelector } from 'react-redux';
 import { RootState } from './state/store';
+import GlobalPage from './pages/GlobalPage';
 
 function App() {
   
@@ -22,6 +23,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/folder' element ={<MainPage/>}/>
+        <Route path='/globalPage/:usernickname' element ={<GlobalPage/>}/>
         <Route path="/auth" element={<LoginRegisterPage />} />
         <Route path='/addFolder/:usernickname' element ={<AddFolder/>}/>
         <Route path='/folder/:folder-nickname' element ={<WordLists/>}/>

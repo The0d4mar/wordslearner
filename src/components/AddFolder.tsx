@@ -19,6 +19,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { RootState } from '../state/store';
 import { AddNewPair, CleanPairStorage } from '../state/addfolder/FolderAdder';
 import MyInput, { InputVariant } from './UI/input/MyInput';
+import { AddFolderToGlobalStorage, DeleteFolderFromGlobalStorage } from '../state/publicFolders/PublicStorage';
 
 interface AddFolderProps {}
 
@@ -27,6 +28,9 @@ const AddFolder: FC<AddFolderProps> = () => {
   const newPairStorage = useSelector((state: RootState) => state.pairStorage);
   const [folder, setFolder] = useState<string>(newPairStorage.folderName);
   const [isPrivate, setPrivate] = useState('Папка закрыта для публичного доступа')
+  const addedFolder = useSelector((state: RootState) =>
+    state.wordsList[usernickname]?.folders || {}
+  );
 
 
   const keyarray = Object.keys(newPairStorage.pairs);
@@ -53,6 +57,7 @@ const AddFolder: FC<AddFolderProps> = () => {
 
 
   function ChangePrivateFlagFunc(e: React.ChangeEvent<HTMLInputElement>){
+    console.log(e.target.value)
     setPrivate(isPrivate == 'Папка открыта для публичного доступа' ? 'Папка закрыта для публичного доступа': 'Папка открыта для публичного доступа')
   }
 
@@ -91,7 +96,7 @@ const AddFolder: FC<AddFolderProps> = () => {
             dateOfCreation: actualData,
           })
         );
-      } else {
+      } else { 
         dispatch(
           AddNewFolder({
             usernickname: usernickname,
@@ -106,12 +111,11 @@ const AddFolder: FC<AddFolderProps> = () => {
             dateOfCreation: actualData,
           })
         );
-      }
-
+      } 
       dispatch(ChangePublicFlag({
             usernickname: usernickname,
             foldername: folder,
-            newFlag: isPrivate == 'Папка закрыта для публичного доступа' ? false : true,
+            newFlag: isPrivate != 'Папка закрыта для публичного доступа' &&  !initFlags.uniqeCodeState.includes("_copy") ? true : false,
       }));
 
 
@@ -162,6 +166,21 @@ const AddFolder: FC<AddFolderProps> = () => {
       }
 
       dispatch(CleanPairStorage());
+      if(isPrivate != 'Папка закрыта для публичного доступа' &&  !initFlags.uniqeCodeState.includes("_copy")){ //ошибка где то здесь
+        dispatch(AddFolderToGlobalStorage({
+            foldername: folder,
+            creator: usernickname,
+            folderobject: structuredClone(addedFolder[folder])
+          })
+        )
+      } else{ 
+        dispatch(DeleteFolderFromGlobalStorage({
+          foldername: folder,
+          creator: usernickname,
+          folder: structuredClone(addedFolder[folder]),
+
+        }))
+      }
       if (initFlags.editfolderFlag) {
         router(`/folder/${folder}-${usernickname}`);
       } else {
@@ -200,13 +219,17 @@ const AddFolder: FC<AddFolderProps> = () => {
             onChange={setFolder}
           />
         </div>
-        <div className={cl.privateBtn}>
-           <label className={`${cl.switch} ${cl.switch200}`}>
-              <input type="checkbox" onChange={e =>ChangePrivateFlagFunc(e)}/>
-              <span className={`${cl.slider} ${cl.slider200}`}></span>
-            </label>
-            {isPrivate}
-        </div>
+        {initFlags.uniqeCodeState.includes("_copy") ? undefined :
+        
+          <div className={cl.privateBtn}>
+            <label className={`${cl.switch} ${cl.switch200}`}>
+                <input type="checkbox" onChange={e =>ChangePrivateFlagFunc(e)}/>
+                <span className={`${cl.slider} ${cl.slider200}`}></span>
+              </label>
+              {isPrivate}
+          </div>
+
+        }
 
         <div className={cl.wordsField}>
           {keyarray.map((pairNumber) => (
