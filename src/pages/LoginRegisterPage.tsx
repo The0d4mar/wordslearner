@@ -6,6 +6,7 @@ import { LoginMethod } from '../state/autheredUser/AutheredUser';
 import { AddNewUser } from '../state/words/WordsStorage';
 import styles from './LoginRegisterPage.module.scss';
 import MyInput, { InputVariant } from '../components/UI/input/MyInput';
+import Cookies from 'js-cookie';
 
 const LoginRegisterPage = () => {
   const [mode, setMode] = useState<'login' | 'register'>('login');
@@ -40,6 +41,7 @@ const LoginRegisterPage = () => {
       }
 
       dispatch(LoginMethod(nickname));
+      Cookies.set('user', JSON.stringify(nickname), { expires: 7 });
       navigate('/');
     } else {
       if (!usernameInput || !loginInput || !passwordInput) {
@@ -59,6 +61,7 @@ const LoginRegisterPage = () => {
 
       dispatch(AddNewUser({ newUserNickname: usernameInput, password: passwordInput, login: loginInput }));
       dispatch(LoginMethod(usernameInput));
+      Cookies.set('user', JSON.stringify(usernameInput), { expires: 7 });
       navigate('/');
     }
   };

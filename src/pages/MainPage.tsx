@@ -11,6 +11,10 @@ import { LogoutMethod } from '../state/autheredUser/AutheredUser';
 import { useWindowWidth } from '../customHooks/useWindowSize';
 import BarButton from './BarButton';
 
+
+import Cookies from 'js-cookie';
+
+
 function MainPage() {
   const [methodOfShowing, setMethodOfShowing] = useState<string>('folder');
   const [folder, setFolder] = useState<string>('');
@@ -42,7 +46,7 @@ function MainPage() {
   };
 
   const logoutFunc = (e: React.MouseEvent<HTMLButtonElement>) =>{
-
+    Cookies.remove('user');
     e.preventDefault();
     dispatch(LogoutMethod())
 
