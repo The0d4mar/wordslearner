@@ -5,27 +5,45 @@
 :root{
   background-color: var(--color-background);
   padding: 24px 45px;
+  @include respondTo(desktop){
+    padding: $rootPaddingDeckstop;
+  }
+  @include respondTo(tablet){
+    padding: $rootPaddingTable;
+  }
+  @include respondTo(mobile){
+    padding: $rootPaddingMobile;
+  }
 }
 
 
 .App {
-
-  @include respondTo(mobile) {
-    padding: 16px;
-  }
-
+  position: relative;
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 60px;
 
     @include respondTo(mobile) {
-      flex-direction: column;
       gap: 1rem;
       margin-bottom: 2rem;
+      margin-bottom: $MarginMobile;
     }
+    @include respondTo(tablet) {
+      gap: 1rem;
+      margin-bottom: 2rem;
+      margin-bottom: $MarginMobile;
+    }
+    @include respondTo(desktop) {
+      gap: 1rem;
+      margin-bottom: 2rem;
+      margin-bottom: $MarginMobile;
+    }
+
+
+
   }
+
 
   &__headerCont {
     display: flex;

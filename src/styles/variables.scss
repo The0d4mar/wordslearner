@@ -14,6 +14,18 @@ $colorSecondaryDark: #60a5fa;
 $colorBackgroundDark: #0A092D;
 $colorTextDark: #f3f4f6;
 
+
+//Компьютерные размеры
+$rootPaddingDeckstop: 24px 45px;
+$SecondTextDeckstop: 16px;
+$MainTextDeckstop: 24px;
+$titleH2Deckstop: 32px;
+
+
+//Планшетные размеры
+$rootPaddingTable: 24px 45px;
+
+
 // Размеры
 $spacingSmall: 0.5rem;
 $spacingMedium: 1rem;
@@ -21,8 +33,22 @@ $spacingLarge: 2rem;
 $spacingXLarge: 3rem;
 $spacingXXLarge: 4rem;
 $borderRadius: 0.5rem;
-$transitionDuration: 0.3s;
 $radiusMedium: 8px;
+
+// мобильные размеры
+$titleH1Mobile: 32px;
+$titleH2Mobile: 28px;
+$MainTextMobile: 16px;   
+$SecondTextMobile: 14px;
+$ThirdTextMobile: 12px;
+
+$BtnPadMobile: 9px 13px;
+$MarginMobile: 24px;
+$rootPaddingMobile: 32px 16px;
+
+$cardSize: 100px;
+
+
 
 // Типографика
 $fontSizeSmall: 0.875rem;
@@ -44,4 +70,5 @@ $card-color: rgb(125, 176, 196);
 
 // Центрирование
 $center: 50%;
-$radiusSmall: 4px; // или другое значение
+$radiusSmall: 4px;
+$transitionDuration: 0.3s;

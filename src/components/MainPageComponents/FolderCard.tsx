@@ -6,6 +6,7 @@ import { CorrectFolderName, DeleteFolder } from '../../state/words/WordsStorage'
 import { useNavigate } from 'react-router-dom';
 import MyButton, { ButtonVariants } from '../UI/button/MyButton';
 import FolderCardBtnBlock from './FolderCardBtnBlock';
+import { useWindowWidth } from '../../customHooks/useWindowSize';
 
 interface FolderCardProps{
     folderName: string;
@@ -22,6 +23,7 @@ const [changeFolderName, setChangeFolderName] = useState<boolean>(false)
 const [newFolderName, setNewFolderName] = useState('');
 const dispatch = useDispatch();
 const router = useNavigate()
+const MyWidth = useWindowWidth();
 
 
 if (copyCardFunc == undefined){
@@ -75,6 +77,7 @@ const openFolder = (e: React.MouseEvent<HTMLButtonElement>, folder: string) =>{
 
 
 
+
 return(
     <section className={cl.folderCard}>
         <div className={cl.folderCard__header}>
@@ -86,19 +89,34 @@ return(
         <div className={cl.folderCard__body}>
             <div className={cl.folderCard__title}>
 
-               {changeFolderName ?
-               <div className={cl.folderCard__nameChanger}>
-                <MyInput
+               {changeFolderName ? (
+                    MyWidth >= 1023 ? (
+                        <div className={cl.folderCard__nameChanger}>
+                        <MyInput
+                            type={InputVariant.text}
+                            placeholder={'Введите новое название папки'}
+                            onChange={changeNewFolderName}
+                            value={newFolderName}
+                        />
+                        <MyButton type={ButtonVariants.add} children={'Add'} onClick={changeFolderNameFunc} />
+                        </div>
+                    ) : (
 
-                    type={InputVariant.text}
-                    placeholder={'Введите новое название папки'}
-                    onChange = {changeNewFolderName}
-                    value={newFolderName}
-                    
-                />
-                <MyButton type = {ButtonVariants.add} children={'Add'} onClick={changeFolderNameFunc}/>
-                </div>
-                 : folderName}
+                        <div className={cl.folderCard__nameChanger_mobile}>
+                            <input
+                                type={InputVariant.text}
+                                placeholder={'Введите новое название папки'}
+                                onChange={e =>changeNewFolderName(e.target.value)}
+                                value={newFolderName}
+                                className={cl.folderCard__nameChangerInput}
+                            />
+                            <button onClick={e=>changeFolderNameFunc(e)} className={cl.folderCard__nameChangerBtn}>Add</button>
+                        </div>
+                    )
+                    ) : (
+                    folderName
+                )}
+
                 
             </div>
             {globalLocalFlag == 'local' ?

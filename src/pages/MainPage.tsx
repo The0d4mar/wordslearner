@@ -8,12 +8,15 @@ import FolderContainer from '../components/MainPageComponents/FolderContainer';
 import MyButton, { ButtonVariants } from '../components/UI/button/MyButton';
 import NavPanel from '../components/NavPanel/NavPanel';
 import { LogoutMethod } from '../state/autheredUser/AutheredUser';
+import { useWindowWidth } from '../customHooks/useWindowSize';
+import BarButton from './BarButton';
 
 function MainPage() {
   const [methodOfShowing, setMethodOfShowing] = useState<string>('folder');
   const [folder, setFolder] = useState<string>('');
   const [newWord, setNewWord] = useState({ originalWord: '', transalteWord: '' });
   const [actualFolder, setActualFolder] = useState<string>('');
+  const MyWidth = useWindowWidth();
 
   const usernickname = useSelector((state: RootState) => state.autherUser.currentUser);
   const router = useNavigate();
@@ -48,47 +51,74 @@ function MainPage() {
   if (!usernickname) return null; // Пока редирект не сработал, не рендерим
 
   return (
+    
     <section className="App">
-      <header className="App__header">
-        <div className='App__logoutBtn'>
+        <header className="App__header">
+          {MyWidth >=1024 ? ( <> 
+            <div className='App__logoutBtn'>
 
-          <MyButton type={ButtonVariants.delete} children={'Выйти'} onClick={logoutFunc}/>
+              <MyButton type={ButtonVariants.delete} children={'Выйти'} onClick={logoutFunc}/>
 
-        </div>
-        <div className='App__headerCont'>
-          <div className="App__addfolderBtn">
-            <MyButton
-              type={ButtonVariants.simple}
-              onClick={addFolder}
-              children={'Добавить папку'}
-            />
-          </div>
-
-          <div className="userBlock">
-            <div className="usercard">
-              <div className="usercard__cont">{usernickname[0]}</div>
             </div>
-          </div>
-        </div>
-      </header>
+            <div className='App__headerCont'>
+              <div className="App__addfolderBtn">
+                <MyButton
+                  type={ButtonVariants.simple}
+                  onClick={addFolder}
+                  children={'Добавить папку'}
+                />
+              </div>
 
-      <main>
-        <NavPanel
-          changeMethodOfShowing={changeMethodOfShowing}
-          usernickname={usernickname}
-        />
+              <div className="userBlock">
+                <div className="usercard">
+                  <div className="usercard__cont">{usernickname[0]}</div>
+                </div>
+              </div>
+            </div>
+           </> )
+            :
 
-        <FolderContainer
-          actualFolder={actualFolder}
-          folderMethodFlag={methodOfShowing}
-          setFolder={setFolder}
-          newWord={newWord}
-          setNewWord={(originalWord, transalteWord) =>
-            setNewWord({ originalWord, transalteWord })
-          }
-          usernickname={usernickname}
-        />
-      </main>
+            <> 
+            <div className='App__logoutBtn'>
+
+              <MyButton type={ButtonVariants.delete} children={'Выйти'} onClick={logoutFunc}/>
+
+            </div>
+            <div className='App__headerCont'>
+
+              <div className="userBlock">
+                <div className="usercard">
+                  <div className="usercard__cont">{usernickname[0]}</div>
+                </div>
+              </div>
+
+              <BarButton autherUserNickName = {usernickname} addFolder = {addFolder}/>
+
+            </div>
+
+           </>
+            
+            
+            }
+        </header>
+
+        <main>
+          <NavPanel
+            changeMethodOfShowing={changeMethodOfShowing}
+            usernickname={usernickname}
+          />
+
+          <FolderContainer
+            actualFolder={actualFolder}
+            folderMethodFlag={methodOfShowing}
+            setFolder={setFolder}
+            newWord={newWord}
+            setNewWord={(originalWord, transalteWord) =>
+              setNewWord({ originalWord, transalteWord })
+            }
+            usernickname={usernickname}
+          />
+        </main>
     </section>
   );
 }

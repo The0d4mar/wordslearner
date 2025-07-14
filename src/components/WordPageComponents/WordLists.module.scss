@@ -12,9 +12,9 @@
     margin-bottom: $spacingXXLarge;
 
     @include respondTo(mobile) {
-      flex-direction: column;
       gap: $spacingMedium;
-      align-items: flex-start;
+      align-items: center;
+      margin-bottom: 40px;
     }
   }
 
@@ -32,6 +32,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 60px;
 
     &__info {
       display: flex;
@@ -41,9 +42,10 @@
       color: var(--color-text);
 
       @include respondTo(mobile) {
-        flex-direction: column;
-        gap: $spacingSmall;
+        align-items: center;
+        gap: 12px;
         font-size: $fontSizeBase;
+        margin-bottom: 40px;
       }
     }
 
@@ -67,10 +69,5 @@
     position: relative;
     background-color: var(--color-background);
     border-radius: $radiusMedium;
-
-    @include respondTo(mobile) {
-      width: 90%;
-      height: auto;
-    }
   }
 }

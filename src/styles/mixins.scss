@@ -11,6 +11,7 @@
   --color-border: #1e3a8a;
   --color-muted-text: rgba(188, 174, 174, 0.762);
   --color-background-2: rgba(0, 0, 139, 0.2);
+  --color-add-bg: rgb(185, 196, 185);
 }
 
 @mixin theme-dark {
@@ -23,6 +24,7 @@
   --color-border: #cad3ec;
   --color-muted-text: rgba(234, 211, 211, 0.762);
   --color-background-2: rgba(149, 149, 206, 0.2);
+  --color-add-bg: rgb(185, 196, 185);
 }
 
 @mixin respondTo($breakpoint) {
@@ -32,12 +34,12 @@
     }
   }
   @else if $breakpoint == tablet {
-    @media (max-width: 900px) {
+    @media (max-width: 1023px) {
       @content;
     }
   }
   @else if $breakpoint == desktop {
-    @media (min-width: 901px) {
+    @media (min-width: 1024px) {
       @content;
     }
   }

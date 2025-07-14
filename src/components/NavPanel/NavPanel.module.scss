@@ -5,17 +5,24 @@
   display: flex;
   margin-bottom: $spacingXXLarge;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; 
+  width: 100%;
 
   &__leftBlock {
     display: flex;
     align-items: center;
     gap: $spacingLarge;
 
+    @include respondTo(tablet) {
+      align-items: center;
+      width: 100%;
+      gap: 24px;
+    }
     @include respondTo(mobile) {
       flex-direction: column;
-      align-items: flex-start;
-      gap: $spacingMedium;
+      align-items: start;
+      width: 100%;
+      gap: 12px;
     }
   }
 }
@@ -61,17 +68,10 @@
     }
   }
 }
-.toglobalPage{
-  display: flex;
-  align-items: center;
-  gap:24px;
-}
+
 
 .searchWordBlock {
-  width: 300px;
+  width: 100%;
   position: relative;
 
-  @include respondTo(mobile) {
-    width: 100%;
-  }
 }

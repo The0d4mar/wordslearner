@@ -76,7 +76,6 @@
     padding: $spacingMedium $spacingMedium $spacingSmall $spacingMedium;
 
     @include respondTo(mobile) {
-      flex-direction: column;
       gap: $spacingSmall;
     }
   }
@@ -106,12 +105,11 @@
   margin-bottom: $spacingXLarge;
   display: flex;
   gap: $spacingSmall;
-  align-items: flex-end;
+  align-items: baseline;
   position: relative;
 
   @include respondTo(mobile) {
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: baseline;
   }
 }
 

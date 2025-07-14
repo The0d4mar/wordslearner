@@ -2,8 +2,8 @@
 @use '../../styles/mixins' as *;
 
 .wordcard {
-  width: $card-size !important;
-  height: $card-size !important;
+  width: $card-size;
+  height: $card-size;
   border-radius: $card-radius;
   position: absolute;
   top: $center;
@@ -71,10 +71,16 @@
     &__cont {
       width: 160px;
       height: 160px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &__words {
       font-size: $fontSizeBase;
+      top: $center;
+      left: $center;
+      transform: translate(-50%, -50%);
     }
   }
 }

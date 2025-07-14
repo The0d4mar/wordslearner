@@ -14,7 +14,7 @@ const ThemeSwitcher: React.FC = () => {
     }
   };
 
-  return <MyButton onClick={toggleTheme} children={'Сменить тему'} type={ButtonVariants.simple}/>;
+  return <MyButton onClick={toggleTheme} children={'Theme'} type={ButtonVariants.simple}/>;
 };
 
 export default ThemeSwitcher;
