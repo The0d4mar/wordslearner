@@ -42,7 +42,7 @@ const WordSearch: React.FC = () => {
   const [query, setQuery] = useState('');
   const router = useNavigate();
   const usernickname = useSelector((state: RootState) => state.autherUser.currentUser) || 'vovangorn';
-
+  console.log(useSelector((state: RootState) => state.wordsList[usernickname]))
   const folders = useSelector((state: RootState) => state.wordsList[usernickname]).folders;
 
   const results = useMemo(() => {
